@@ -1,0 +1,13 @@
+**/.gradle
+.idea/*
+!.idea/runConfigurations/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/sqldialects.xml
+!.idea/kotlinScripting.xml
+!.idea/vcs.xml
+**/out
+**/build
+*.iml
+*.ipr
+*.iws

@@ -1,0 +1,68 @@
+/*
+ * Copyright 2022 Zoltan Farkas
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.yaml:snakeyaml:1.28"
+        classpath "org.flywaydb:flyway-core:7.1.1"
+    }
+}
+
+configurations {
+    pgsqlFlyway
+}
+
+dependencies {
+    pgsqlFlyway "org.postgresql:postgresql:42.5.0"
+}
+
+task recreatePgSqlDatabase(group: 'developer tools', description: 'Recreates the PostgreSQL database.') {
+    doLast {
+        def flyway = createFlyway()
+        flyway.clean()
+        flyway.migrate()
+    }
+}
+
+task migratePgSqlDatabase(group: 'developer tools', description: 'Migrates the PostgreSQL database.') {
+    doLast {
+        createFlyway().migrate()
+    }
+}
+
+task cleanPgSqlDatabase(group: 'developer tools', description: 'Cleans the PostgreSQL database.') {
+    doLast {
+        createFlyway().clean()
+    }
+}
+
+org.flywaydb.core.Flyway createFlyway() {
+    configurations.pgsqlFlyway.files.each {
+        org.flywaydb.core.Flyway.classLoader.addURL(it.toURI().toURL())
+    }
+    def cfgFile = new File(file(rootProject.projectDir), "sample/sample-app/application.yml")
+    def cfg = new org.yaml.snakeyaml.Yaml().load( cfgFile.newInputStream() )
+    String jdbcUrl = cfg.database.jdbcUrl
+    String username = cfg.database.username
+    String password = cfg.database.password
+    return org.flywaydb.core.Flyway.configure()
+            .locations('filesystem:' + file("src/main/resources/db/migration").absolutePath)
+            .dataSource(jdbcUrl, username, password)
+            .load()
+}

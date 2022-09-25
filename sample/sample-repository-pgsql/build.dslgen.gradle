@@ -1,0 +1,130 @@
+/*
+ * Copyright 2022 Zoltan Farkas
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.flywaydb:flyway-core:7.1.1"
+        classpath "org.testcontainers:testcontainers:1.16.3"
+        classpath "org.testcontainers:postgresql:1.17.3"
+        classpath "com.querydsl:querydsl-sql-codegen:5.0.0"
+        classpath "com.querydsl:querydsl-codegen:5.0.0"
+        // Annotation API was removed from JDK9 and codegen requires it at runtime
+        classpath "javax.annotation:javax.annotation-api:1.3.2"
+    }
+}
+
+apply plugin: 'idea'
+
+sourceSets.main.java.srcDir file('src/generated/java')
+idea {
+    module {
+        // Marks the already(!) added srcDir as "generated"
+        generatedSourceDirs += file('src/generated/java')
+    }
+}
+
+configurations {
+    pgsqlRuntime
+}
+
+dependencies {
+    pgsqlRuntime "org.postgresql:postgresql:42.5.0"
+}
+
+task generatePgSqlQueryDsl(group: 'developer tools', description: 'Generates QueryDSL classes for PostgreSQL.') {
+    dependsOn(':sample-docker-pgsql:docker')
+    doFirst {
+        def container = container()
+        container.start()
+        flyway(container.getJdbcUrl()).migrate()
+        generate(container.getJdbcUrl())
+    }
+}
+
+org.testcontainers.containers.PostgreSQLContainer container() {
+    def postgres = org.testcontainers.utility.DockerImageName
+            .parse("dql-sample/postgres:latest")
+            .asCompatibleSubstituteFor("postgres")
+    return new org.testcontainers.containers.PostgreSQLContainer(postgres)
+            .withDatabaseName("dql")
+            .withUsername("user")
+            .withPassword("password")
+}
+
+org.flywaydb.core.Flyway flyway(String jdbcUrl) {
+    configurations.pgsqlRuntime.files.each {
+        org.flywaydb.core.Flyway.classLoader.addURL(it.toURI().toURL())
+    }
+    return org.flywaydb.core.Flyway.configure()
+            .locations('filesystem:' + file("src/main/resources/db/migration").absolutePath)
+            .dataSource(jdbcUrl, "user", "password")
+            .load()
+}
+
+void generate(String jdbcUrl) {
+    configurations.pgsqlRuntime.files.each {
+        groovy.sql.Sql.classLoader.addURL(it.toURI().toURL())
+    }
+    groovy.sql.Sql sql = groovy.sql.Sql.newInstance(
+            jdbcUrl,
+            "user",
+            "password",
+            "org.postgresql.Driver"
+    )
+    java.sql.Connection conn = sql.connection
+
+    com.querydsl.sql.SQLTemplates templates = new com.querydsl.sql.PostgreSQLTemplates()
+    com.querydsl.sql.Configuration configuration = new com.querydsl.sql.Configuration(templates)
+    configuration.registerType("uuid", java.util.UUID.class)
+    configuration.registerType("timestamp", java.time.LocalDateTime.class)
+    configuration.registerType("timestamp without time zone", java.time.LocalDateTime.class)
+    configuration.registerType("email_address", String.class)
+
+    com.querydsl.sql.codegen.MetaDataExporter exporter = new com.querydsl.sql.codegen.MetaDataExporter()
+    exporter.setPackageName("com.farcsal.sample.repository.postgresql.dsl")
+    exporter.setConfiguration(configuration)
+    java.io.File targetFolder = file("src/generated/java")
+    file("${targetFolder.absolutePath}/com/farcsal/sample/repository/postgresql/dsl").deleteDir()
+    exporter.setTargetFolder(targetFolder)
+
+    // Disable key generation to prevent problems with partition tables.
+    // Anyway they are useless for PostgreSQL because PostgreSQL does not support index hinting.
+    exporter.setExportPrimaryKeys(false)
+    exporter.setExportForeignKeys(false)
+
+    // It is possible to generate bean classes too:
+    //exporter.setBeanPrefix("S")
+    //com.querydsl.codegen.BeanSerializer serializer = new com.querydsl.codegen.BeanSerializer()
+    //exporter.setBeanSerializer(serializer)
+
+    // NOTE: If you get 'Attempted to write multiple times' error, the user can see more than one database
+    // and there is a table-name conflict between them.
+    // Modify the privileges or create a new user who can access only the requested database.
+    exporter.export(conn.getMetaData())
+    sql.close()
+
+    // Remove partition tables and enum tables.
+    file("${targetFolder.absolutePath}/com/farcsal/sample/repository/postgresql/dsl")
+            .listFiles({ file ->
+                file.name.matches("Q.+Y\\d{4}m\\d{2}\\.java") || file.name.matches("QKey.+\\.java")
+            } as FileFilter)
+            .each { file ->
+                file.delete()
+            }
+}

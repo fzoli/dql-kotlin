@@ -1,0 +1,56 @@
+/*
+ * Copyright 2022 Zoltan Farkas
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ext {
+    projectVersion = createProjectVersion()
+}
+
+def getVersionName() {
+    return property('versionName').toString();
+}
+
+def createProjectVersion() {
+    return createVersionWithShortRevision(
+            getVersionName(),
+            rootProject.revision,
+            rootProject.dirty)
+}
+
+String createVersionWithShortRevision(String version, String fullRevision, boolean dirty) {
+    def snapshot = isSnapshot(version)
+    def projectVersion = trimSnapshot(version)
+    def revisionPart = snapshot ? '-' + fullRevision.substring(0, 7) : ''
+    def dirtyPart = dirty ? '-dirty' : ''
+    return appendSnapshot(snapshot, projectVersion + revisionPart + dirtyPart)
+}
+
+boolean isSnapshot(String versionText) {
+    return versionText.endsWith('-SNAPSHOT')
+}
+
+String trimSnapshot(String versionText) {
+    if (isSnapshot(versionText)) {
+        return versionText.substring(0, versionText.length() - '-SNAPSHOT'.length())
+    }
+    return versionText
+}
+
+String appendSnapshot(boolean snapshot, String versionText) {
+    if (snapshot) {
+        return versionText + '-SNAPSHOT'
+    }
+    return versionText
+}

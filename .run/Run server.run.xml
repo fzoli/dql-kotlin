@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <module name="dql-kotlin.sample-app.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.farcsal.sample.Application" />
+    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/sample/sample-app" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

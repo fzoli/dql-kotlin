@@ -33,6 +33,11 @@ plugins {
     id("org.ajoberstar.grgit").version("5.0.0")
 }
 
+val signingKey: String? by project
+val signingPassword: String? by project
+val ossrhUsername = System.getenv("OSSRH_USERNAME") ?: ""
+val ossrhPassword = System.getenv("OSSRH_PASSWORD") ?: ""
+
 val git = org.ajoberstar.grgit.Grgit.open(mapOf("currentDir" to project.rootDir))
 ext["revision"] = git.head().id
 ext["dirty"] = !git.status().isClean
@@ -40,6 +45,8 @@ apply(from = "build.version.gradle")
 
 group = "com.farcsal.dql"
 version = ext["projectVersion"] as String
+
+val snapshot = ext["snapshot"] as Boolean
 
 subprojects {
 
@@ -81,6 +88,7 @@ subprojects {
 
     if (!name.startsWith("sample")) {
         apply<MavenPublishPlugin>()
+        apply<SigningPlugin>()
 
         val sourcesJar by tasks.creating(Jar::class) {
             val sourceSets: SourceSetContainer by project
@@ -103,8 +111,59 @@ subprojects {
                     from(components["java"])
                     artifact(sourcesJar)
                     artifact(javadocJar)
+                    pom {
+                        licenses {
+                            license {
+                                name.set("Apache-2.0")
+                                url.set("https://opensource.org/licenses/Apache-2.0")
+                            }
+                        }
+                        developers {
+                            developer {
+                                id.set("progfarkas")
+                                name.set("Zoltan Farkas")
+                                email.set("progfarkas@gmail.com")
+                            }
+                        }
+                        scm {
+                            connection.set("scm:git:https://github.com/fzoli/dql-kotlin")
+                            developerConnection.set("scm:git:https://github.com/fzoli/")
+                            url.set("https://github.com/fzoli/dql-kotlin")
+                        }
+                    }
                 }
             }
+
+            repositories {
+                if (snapshot) {
+                    maven {
+                        name = "mavenCentral"
+                        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                        credentials {
+                            username = ossrhUsername
+                            password = ossrhPassword
+                        }
+                    }
+                } else {
+                    maven {
+                        name = "mavenCentral"
+                        url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                        credentials {
+                            username = ossrhUsername
+                            password = ossrhPassword
+                        }
+                    }
+                }
+            }
+        }
+
+        configure<SigningExtension> {
+            if (signingKey != null && signingPassword != null) {
+                useInMemoryPgpKeys(signingKey, signingPassword)
+            } else {
+                useGpgCmd()
+            }
+            sign(extensions.getByType<PublishingExtension>().publications)
         }
     }
 

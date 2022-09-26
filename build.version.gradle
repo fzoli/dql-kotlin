@@ -16,6 +16,7 @@
 
 ext {
     projectVersion = createProjectVersion()
+    snapshot = isSnapshot(getVersionName())
 }
 
 def getVersionName() {

@@ -34,7 +34,7 @@ plugins {
 }
 
 val signingKey: String? by project
-val signingPassword: String? by project
+val signingPassphrase: String? by project
 val ossrhUsername = System.getenv("OSSRH_USERNAME") ?: ""
 val ossrhPassword = System.getenv("OSSRH_PASSWORD") ?: ""
 
@@ -163,8 +163,8 @@ subprojects {
         }
 
         configure<SigningExtension> {
-            if (signingKey != null && signingPassword != null) {
-                useInMemoryPgpKeys(signingKey, signingPassword)
+            if (signingKey != null && signingPassphrase != null) {
+                useInMemoryPgpKeys(signingKey, signingPassphrase)
             } else {
                 useGpgCmd()
             }

@@ -19,7 +19,6 @@ buildscript {
     val kotlin_version: String by project
 
     repositories {
-        google()
         mavenCentral()
     }
 
@@ -59,7 +58,6 @@ subprojects {
         val kotlin_version: String by project
 
         repositories {
-            google()
             mavenCentral()
         }
 
@@ -72,7 +70,6 @@ subprojects {
     apply(plugin = "kotlin")
 
     repositories {
-        google()
         mavenCentral()
     }
 

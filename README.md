@@ -1,4 +1,9 @@
-# Modules
+# DQL
+
+[<img src="https://img.shields.io/maven-central/v/com.farcsal.dql/data-type.svg?label=latest%20release"/>](https://central.sonatype.dev/publisher/com.farcsal.dql)
+![GitHub](https://img.shields.io/github/license/fzoli/dql-kotlin)
+
+## Modules
 
 - **data-type:** Internal module. Contains reused data types and utilities.
 - **query-api:** Query API interface. Independent module. Can be used in repository layers.
@@ -16,7 +21,7 @@
 - **dql-query-parser:** Translates the DQL model `DqlExpression` to the Query API `Criteria`.
 - **dql-string-builder:** A DQL query `String` builder. Used by `query-dql`.
 
-# Sample
+## Sample
 
 In the `sample` directory you can find example codes for both **server** and **client**.
 The server and the client use the same service interface.

@@ -31,6 +31,7 @@ buildscript {
 
 plugins {
     id("org.ajoberstar.grgit").version("5.0.0")
+    id("org.jetbrains.dokka").version("1.7.10")
 }
 
 val signingKey: String? by project
@@ -89,6 +90,7 @@ subprojects {
     if (!name.startsWith("sample")) {
         apply<MavenPublishPlugin>()
         apply<SigningPlugin>()
+        apply<org.jetbrains.dokka.gradle.DokkaPlugin>()
 
         val sourcesJar by tasks.creating(Jar::class) {
             val sourceSets: SourceSetContainer by project
@@ -96,12 +98,15 @@ subprojects {
             archiveClassifier.set("sources")
         }
 
-        val javadoc by tasks.getting(Javadoc::class) {
-            val sourceSets: SourceSetContainer by project
-            source = sourceSets["main"].java
+        val dokkaJavadoc by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
+            dokkaSourceSets {
+                named("main") {
+                    noAndroidSdkLink.set(false)
+                }
+            }
         }
-        val javadocJar by tasks.creating(Jar::class) {
-            from(javadoc)
+        val dokkaJavadocJar by tasks.creating(Jar::class) {
+            from(dokkaJavadoc)
             archiveClassifier.set("javadoc")
         }
 
@@ -110,7 +115,7 @@ subprojects {
                 create<MavenPublication>(project.name) {
                     from(components["java"])
                     artifact(sourcesJar)
-                    artifact(javadocJar)
+                    artifact(dokkaJavadocJar)
                     pom {
                         name.set("DQL ${project.name}")
                         description.set("DQL library for Kotlin. Module: ${project.name}")

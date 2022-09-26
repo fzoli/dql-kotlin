@@ -112,6 +112,9 @@ subprojects {
                     artifact(sourcesJar)
                     artifact(javadocJar)
                     pom {
+                        name.set("DQL ${project.name}")
+                        description.set("DQL library for Kotlin. Module: ${project.name}")
+                        url.set("https://github.com/fzoli/dql-kotlin")
                         licenses {
                             license {
                                 name.set("Apache-2.0")

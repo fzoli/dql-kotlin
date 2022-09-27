@@ -70,6 +70,10 @@ tasks {
         dependsOn(generateGrammarSource)
     }
 
+    withType<org.jetbrains.dokka.gradle.DokkaTask> {
+        dependsOn(generateGrammarSource)
+    }
+
     withType<Test> {
         useJUnitPlatform()
     }

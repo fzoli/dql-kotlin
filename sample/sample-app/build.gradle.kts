@@ -22,13 +22,14 @@ plugins {
     kotlin("plugin.spring") version "1.7.10"
 }
 
+val dql_version: String by project
 val hikaricp_version: String by project
 val testcontainers_bom_version: String by project
 
 dependencies {
     implementation(project(":sample-rest-server"))
     implementation(project(":sample-repository-pgsql"))
-    implementation(project(":dql-query-parser"))
+    implementation("com.farcsal.dql:dql-query-parser:$dql_version")
     implementation(project(":sample-dql-query-parser-extension"))
     implementation("org.springframework:spring-tx")
     implementation("org.springframework:spring-jdbc")

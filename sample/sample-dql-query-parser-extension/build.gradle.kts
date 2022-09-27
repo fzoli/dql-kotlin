@@ -18,7 +18,9 @@ plugins {
     `java-library`
 }
 
+val dql_version: String by project
+
 dependencies {
-    api(project(":query-api"))
+    api("com.farcsal.dql:query-api:$dql_version")
     api(project(":sample-query-extension-api"))
 }

@@ -18,6 +18,7 @@ plugins {
     `java-library`
 }
 
+val dql_version: String by project
 val springframework_version: String by project
 val querydsl_version: String by project
 
@@ -26,7 +27,7 @@ apply(from = "build.flyway.gradle")
 
 dependencies {
     api(project(":sample-repository-api"))
-    implementation(project(":query-querydsl"))
+    implementation("com.farcsal.dql:query-querydsl:$dql_version")
     implementation(project(":sample-query-extension-querydsl"))
     implementation("com.querydsl:querydsl-sql:$querydsl_version")
     implementation("org.springframework:spring-tx:$springframework_version")

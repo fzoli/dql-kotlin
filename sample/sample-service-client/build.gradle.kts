@@ -18,6 +18,7 @@ plugins {
     `java-library`
 }
 
+val dql_version: String by project
 val jackson_version: String by project
 val okhttp3_version: String by project
 val retrofit_version: String by project
@@ -26,7 +27,7 @@ val kotlinx_coroutines_version: String by project
 dependencies {
     api(project(":sample-service-api"))
     implementation(project(":sample-rest-util"))
-    implementation(project(":query-dql"))
+    implementation("com.farcsal.dql:query-dql:$dql_version")
     implementation(project(":sample-query-extension-dql"))
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3_version")
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")

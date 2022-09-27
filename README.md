@@ -2,6 +2,7 @@
 
 [<img src="https://img.shields.io/maven-central/v/com.farcsal.dql/data-type.svg?label=latest%20release"/>](https://central.sonatype.dev/publisher/com.farcsal.dql)
 ![GitHub](https://img.shields.io/github/license/fzoli/dql-kotlin)
+![Test](https://github.com/fzoli/dql-kotlin/workflows/Test/badge.svg)
 
 ## Modules
 

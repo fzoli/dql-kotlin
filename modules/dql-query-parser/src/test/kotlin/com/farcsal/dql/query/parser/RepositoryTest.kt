@@ -24,14 +24,15 @@ import org.junit.jupiter.api.Test
 class RepositoryTest {
 
     @Test
-    fun repositoryFiltering() {
+    fun repository() {
         val repo = PersonRepository()
         repo.add(Person(name = PersonName(firstName = "User", lastName = "One"), age = 1))
         repo.add(Person(name = PersonName(firstName = "User", lastName = "Two"), age = 1))
         repo.add(Person(name = PersonName(firstName = "User", lastName = "Three"), age = 10))
-        val result = repo.list {
-            name.firstName.eq("User").and(age.gt(1))
-        }
+        val result = repo.list(
+            filter = { name.firstName.eq("User").and(age.gt(1)) },
+            order = { listOf(age.asc().nullsLast(), name.firstName.desc()) }
+        )
         Assertions.assertEquals(1, result.size)
         val person = result.first()
         Assertions.assertEquals("Three", person.name.lastName)

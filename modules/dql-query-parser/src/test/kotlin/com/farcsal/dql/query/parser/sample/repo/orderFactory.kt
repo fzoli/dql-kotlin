@@ -15,28 +15,20 @@
  */
 package com.farcsal.dql.query.parser.sample.repo
 
-import com.farcsal.dql.query.parser.sample.filter.PersonFilterField
+import com.farcsal.dql.query.parser.sample.order.PersonNameOrderField
 import com.farcsal.dql.query.parser.sample.order.PersonOrderField
-import com.farcsal.query.api.filter.FilterFunction
-import com.farcsal.query.api.order.OrderFunction
-import com.farcsal.query.kt.filter.invokeFilter
-import com.farcsal.query.kt.filter.invokeOrder
+import com.farcsal.query.kt.filter.KOrderField
 
-class PersonRepository {
+fun createPersonOrderField(): PersonOrderField {
+    return PersonOrderField(
+        name = createPersonNameOrderField(),
+        age = KOrderField<Person>(compareBy { it.age }),
+    )
+}
 
-    private val items = mutableListOf<Person>()
-
-    fun list(
-        filter: FilterFunction<PersonFilterField>? = null,
-        order: OrderFunction<PersonOrderField>? = null
-    ): List<Person> {
-        return items
-            .invokeFilter(filter) { it.toFilterField() }
-            .invokeOrder(order, createPersonOrderField())
-    }
-
-    fun add(person: Person) {
-        items.add(person)
-    }
-
+fun createPersonNameOrderField(): PersonNameOrderField {
+    return PersonNameOrderField(
+        firstName = KOrderField<Person>(compareBy { it.name.firstName }),
+        lastName = KOrderField<Person>(compareBy { it.name.lastName })
+    )
 }

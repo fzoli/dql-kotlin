@@ -16,10 +16,36 @@
 package com.farcsal.query.kt.filter
 
 import com.farcsal.query.api.Criteria
+import com.farcsal.query.api.Order
 import com.farcsal.query.api.filter.FilterFunction
+import com.farcsal.query.api.order.OrderFunction
 
 fun Criteria.toBoolean(): Boolean {
     return KCriteria.unwrap(this)
+}
+
+@Suppress("UNCHECKED_CAST")
+private fun <T : Any> Order.toComparator(): Comparator<in T> {
+    return (this as KOrder<T>).comparator
+}
+
+@Suppress("UNCHECKED_CAST")
+private fun <T: Any, O> toComparator(order: OrderFunction<O>?, orderObject: O): Comparator<in T>? {
+    if (order == null) {
+        return null
+    }
+    val comparators: List<Comparator<in T>> = order(orderObject).map { it.toComparator() }
+    var comparator: Comparator<in T>? = null
+    val iterator = comparators.iterator()
+    while (iterator.hasNext()) {
+        val current = iterator.next()
+        comparator = if (comparator == null) {
+            current
+        } else {
+            comparator.thenComparing(current as Comparator<Any?>?)
+        }
+    }
+    return comparator
 }
 
 fun <T, F> List<T>.invokeFilter(filter: FilterFunction<F>?, mapper: (T) -> F): List<T> {
@@ -29,4 +55,9 @@ fun <T, F> List<T>.invokeFilter(filter: FilterFunction<F>?, mapper: (T) -> F): L
     return filter {
         filter(mapper(it))?.toBoolean() ?: true
     }
+}
+
+fun <T: Any, O> List<T>.invokeOrder(order: OrderFunction<O>?, orderObject: O): List<T> {
+    val comparator = toComparator<T, O>(order, orderObject) ?: return this
+    return sortedWith(comparator)
 }

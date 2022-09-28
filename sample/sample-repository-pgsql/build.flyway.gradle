@@ -19,8 +19,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.yaml:snakeyaml:1.28"
-        classpath "org.flywaydb:flyway-core:7.1.1"
+        classpath "org.yaml:snakeyaml:1.33"
+        classpath "org.flywaydb:flyway-core:9.3.1"
     }
 }
 
@@ -64,5 +64,6 @@ org.flywaydb.core.Flyway createFlyway() {
     return org.flywaydb.core.Flyway.configure()
             .locations('filesystem:' + file("src/main/resources/db/migration").absolutePath)
             .dataSource(jdbcUrl, username, password)
+            .cleanDisabled(false)
             .load()
 }

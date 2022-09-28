@@ -1,8 +1,8 @@
 # DQL
 
 [<img src="https://img.shields.io/maven-central/v/com.farcsal.dql/data-type.svg?label=latest%20release"/>](https://central.sonatype.dev/publisher/com.farcsal.dql)
-![GitHub](https://img.shields.io/github/license/fzoli/dql-kotlin)
-![Test](https://github.com/fzoli/dql-kotlin/workflows/Test/badge.svg)
+[<img src="https://img.shields.io/github/license/fzoli/dql-kotlin"/>](https://github.com/fzoli/dql-kotlin/blob/main/LICENSE)
+[<img src="https://github.com/fzoli/dql-kotlin/workflows/Test/badge.svg"/>](https://github.com/fzoli/dql-kotlin/actions/workflows/test.yml)
 
 ## Modules
 
@@ -40,7 +40,8 @@ The database schema is initiated at startup with **Flyway**.
 There is no `JPA` in the sample code, but QueryDSL supports it too.
 
 ### Start here:
-`sample/sample-app/src/test/kotlin/com/farcsal/sample/service/UserServiceTest.kt`
+[UserServiceTest.kt](https://github.com/fzoli/dql-kotlin/blob/main/sample/sample-app/src/test/kotlin/com/farcsal/sample/service/UserServiceTest.kt)
 
-You can run the server too if you set up a database and configure the server.
-Just copy `sample/sample-app/application.sample.yml` to `sample/sample-app/application.yml` and set the config parameters.
+You can run the [server application](https://github.com/fzoli/dql-kotlin/blob/main/sample/sample-app/src/main/kotlin/com/farcsal/sample/Application.kt) too if you set up a database and configure the server.
+
+To configure the server just copy [application.sample.yml](https://github.com/fzoli/dql-kotlin/blob/main/sample/sample-app/application.sample.yml) to the same directory with name `application.yml` and set the database parameters.

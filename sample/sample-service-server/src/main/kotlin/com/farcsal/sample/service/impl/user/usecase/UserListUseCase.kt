@@ -22,7 +22,7 @@ import com.farcsal.sample.repository.api.user.model.UserFilterField
 import com.farcsal.sample.repository.api.user.model.UserOrderField
 import com.farcsal.sample.service.api.user.model.User
 import com.farcsal.sample.repository.api.util.Paging
-import com.farcsal.sample.service.impl.util.framework.annotation.UseCase
+import com.farcsal.sample.service.framework.annotation.UseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 

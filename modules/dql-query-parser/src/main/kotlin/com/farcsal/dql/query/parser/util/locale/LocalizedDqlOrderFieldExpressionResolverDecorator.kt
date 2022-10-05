@@ -19,7 +19,7 @@ import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionLocali
 import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolver
 import com.farcsal.dql.query.parser.order.resolver.decorator.DqlOrderFieldExpressionResolverDecorator
 
-class LocalizedDqlOrderFieldExpressionResolverDecorator(private val localeProvider: LocaleProvider) : DqlOrderFieldExpressionResolverDecorator {
+class LocalizedDqlOrderFieldExpressionResolverDecorator(private val localeProvider: DqlLocaleProvider) : DqlOrderFieldExpressionResolverDecorator {
 
     override fun decorate(resolver: DqlOrderFieldExpressionResolver): DqlOrderFieldExpressionResolver {
         return DqlOrderFieldExpressionLocalizedResolver(resolver, localeProvider.getLocale())

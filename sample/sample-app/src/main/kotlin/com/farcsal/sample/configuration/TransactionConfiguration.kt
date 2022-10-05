@@ -15,7 +15,6 @@
  */
 package com.farcsal.sample.configuration
 
-import com.farcsal.sample.repository.framework.transaction.TransactionValidator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
@@ -30,11 +29,6 @@ class TransactionConfiguration {
     @Bean
     fun platformTransactionManager(dataSource: DataSource): PlatformTransactionManager {
         return DataSourceTransactionManager(dataSource)
-    }
-
-    @Bean
-    fun transactionValidator(): TransactionValidator {
-        return TransactionValidator()
     }
 
 }

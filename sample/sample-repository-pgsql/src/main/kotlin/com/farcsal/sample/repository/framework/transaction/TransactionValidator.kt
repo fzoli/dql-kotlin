@@ -15,8 +15,10 @@
  */
 package com.farcsal.sample.repository.framework.transaction
 
+import org.springframework.stereotype.Component
 import org.springframework.transaction.support.TransactionSynchronizationManager
 
+@Component
 class TransactionValidator {
 
     fun requireTransaction() {

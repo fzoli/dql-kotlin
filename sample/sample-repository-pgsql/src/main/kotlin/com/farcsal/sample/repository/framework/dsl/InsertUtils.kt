@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.util.locale
+package com.farcsal.sample.repository.framework.dsl
 
-import java.util.Locale
+import com.querydsl.core.types.Path
+import com.querydsl.sql.dml.AbstractSQLInsertClause
 
-interface LocaleProvider {
-    fun getLocale(): Locale?
+fun <T> AbstractSQLInsertClause<*>.executeWithRequiredKey(path: Path<T>): T {
+    return executeWithKey(path)!!
 }

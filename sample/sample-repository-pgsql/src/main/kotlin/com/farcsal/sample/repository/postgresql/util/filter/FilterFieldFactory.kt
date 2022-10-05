@@ -19,15 +19,13 @@ import com.farcsal.query.api.*
 import com.farcsal.query.querydsl.*
 import com.farcsal.sample.query.api.UnaccentStringField
 import com.farcsal.sample.query.querydsl.QUnaccentStringField
+import com.farcsal.sample.repository.postgresql.util.mapper.toLocalDateTime
 import com.querydsl.core.types.dsl.DateTimeExpression
 import com.querydsl.core.types.dsl.NumberExpression
 import com.querydsl.core.types.dsl.SimpleExpression
 import com.querydsl.core.types.dsl.StringExpression
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
-
-private val timeZone = ZoneId.of("UTC")
 
 fun <T> T.toSetField(): SetField<T> {
     return QSetField(this)
@@ -38,7 +36,7 @@ fun SimpleExpression<UUID>.toUuidField(): UuidField {
 }
 
 fun DateTimeExpression<LocalDateTime>.toInstantField(): InstantField {
-    return QInstantMappedField(this) { LocalDateTime.ofInstant(it, timeZone) }
+    return QInstantMappedField(this) { it.toLocalDateTime() }
 }
 
 fun NumberExpression<Int>.toIntField(): IntField {

@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.rest.util
+package com.farcsal.sample.framework.locale
 
-import com.farcsal.dql.query.parser.util.locale.LocaleProvider
+import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
 import org.springframework.context.i18n.LocaleContextHolder
-import java.util.Locale
+import org.springframework.stereotype.Component
+import java.util.*
 
-class ContextLocaleProvider : LocaleProvider {
+@Component
+class ContextLocaleProvider : DqlLocaleProvider {
 
     override fun getLocale(): Locale {
         return LocaleContextHolder.getLocale()

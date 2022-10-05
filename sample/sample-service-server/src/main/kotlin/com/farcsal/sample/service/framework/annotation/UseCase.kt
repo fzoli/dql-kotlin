@@ -13,24 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.repository.postgresql.util.paging
+package com.farcsal.sample.service.framework.annotation
 
-import com.farcsal.sample.repository.api.util.Paging
-import com.querydsl.core.support.QueryBase
+import org.springframework.stereotype.Service
 
-@Suppress("UNCHECKED_CAST")
-fun <Q: QueryBase<Q>> QueryBase<Q>.pageBy(paging: Paging?): Q {
-    var query = this as Q
-    if (paging == null) {
-        return query
-    }
-    val offset = paging.offset
-    val limit = paging.limit
-    if (offset != null) {
-        query = query.offset(offset)
-    }
-    if (limit != null) {
-        query = query.limit(limit.toLong())
-    }
-    return query
-}
+@Service
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class UseCase

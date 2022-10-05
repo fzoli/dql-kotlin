@@ -16,11 +16,14 @@
 package com.farcsal.sample.repository.framework.sql
 
 import com.farcsal.sample.repository.framework.transaction.TransactionValidator
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.datasource.DataSourceUtils
+import org.springframework.stereotype.Component
 import java.sql.Connection
 import javax.sql.DataSource
 
-class SqlConnectionResolver constructor(
+@Component
+class SqlConnectionResolver @Autowired constructor(
     private val dataSource: DataSource,
     private val transactionValidator: TransactionValidator,
 ) {

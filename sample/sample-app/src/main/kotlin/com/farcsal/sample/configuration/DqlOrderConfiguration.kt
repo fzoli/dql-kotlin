@@ -18,19 +18,13 @@ package com.farcsal.sample.configuration
 import com.farcsal.dql.query.parser.order.DqlOrderFactory
 import com.farcsal.dql.query.parser.order.OrderFunctionFactory
 import com.farcsal.dql.query.parser.order.field.DynamicDqlOrderFieldParser
-import com.farcsal.dql.query.parser.util.locale.LocaleProvider
+import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
 import com.farcsal.dql.query.parser.util.locale.LocalizedDqlOrderFieldExpressionResolverDecorator
-import com.farcsal.sample.rest.util.ContextLocaleProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 class DqlOrderConfiguration {
-
-    @Bean
-    fun localeProvider(): LocaleProvider {
-        return ContextLocaleProvider()
-    }
 
     @Bean
     fun dqlOrderFactory(): DqlOrderFactory {
@@ -39,7 +33,7 @@ class DqlOrderConfiguration {
 
     @Bean
     fun orderFunctionFactory(
-        localeProvider: LocaleProvider,
+        localeProvider: DqlLocaleProvider,
         dqlOrderFactory: DqlOrderFactory
     ): OrderFunctionFactory {
         val decorator = LocalizedDqlOrderFieldExpressionResolverDecorator(localeProvider)

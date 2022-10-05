@@ -21,12 +21,16 @@ import com.querydsl.sql.RelationalPath
 import com.querydsl.sql.dml.SQLDeleteClause
 import com.querydsl.sql.dml.SQLInsertClause
 import com.querydsl.sql.dml.SQLUpdateClause
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 
+@Component
 class PgSqlDslProvider(
     private val connectionResolver: SqlConnectionResolver,
     private val templates: PostgreSQLTemplates,
 ) {
 
+    @Autowired
     constructor(connectionResolver: SqlConnectionResolver) : this(connectionResolver, PgSqlTemplates())
 
     fun createSqlQueryFactory(): PgSqlQueryFactory {

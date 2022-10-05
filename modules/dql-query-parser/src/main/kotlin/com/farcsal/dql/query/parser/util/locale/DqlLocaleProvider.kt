@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.service.impl.util.framework.annotation
+package com.farcsal.dql.query.parser.util.locale
 
-import org.springframework.stereotype.Service
+import java.util.Locale
 
-@Service
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-annotation class UseCase
+interface DqlLocaleProvider {
+    fun getLocale(): Locale?
+}

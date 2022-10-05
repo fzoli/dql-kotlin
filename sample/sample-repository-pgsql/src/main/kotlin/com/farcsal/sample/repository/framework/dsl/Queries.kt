@@ -13,11 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.repository.postgresql.util.dml
+package com.farcsal.sample.repository.framework.dsl
 
-import com.querydsl.core.types.Path
-import com.querydsl.sql.dml.AbstractSQLInsertClause
+import com.farcsal.sample.repository.api.util.Paging
+import com.querydsl.core.support.QueryBase
 
-fun <T> AbstractSQLInsertClause<*>.executeWithRequiredKey(path: Path<T>): T {
-    return executeWithKey(path)!!
+@Suppress("UNCHECKED_CAST")
+fun <Q: QueryBase<Q>> QueryBase<Q>.pageBy(paging: Paging?): Q {
+    var query = this as Q
+    if (paging == null) {
+        return query
+    }
+    val offset = paging.offset
+    val limit = paging.limit
+    if (offset != null) {
+        query = query.offset(offset)
+    }
+    if (limit != null) {
+        query = query.limit(limit.toLong())
+    }
+    return query
 }

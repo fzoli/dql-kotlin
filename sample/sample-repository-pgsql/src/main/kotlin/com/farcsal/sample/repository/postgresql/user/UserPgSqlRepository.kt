@@ -34,9 +34,9 @@ import com.farcsal.sample.repository.postgresql.dsl.QUserPhoneNumber.userPhoneNu
 import com.farcsal.sample.repository.postgresql.user.model.createFilterField
 import com.farcsal.sample.repository.postgresql.user.model.createOrderField
 import com.farcsal.sample.repository.postgresql.user.model.toDto
-import com.farcsal.sample.repository.postgresql.util.dml.executeWithRequiredKey
+import com.farcsal.sample.repository.framework.dsl.executeWithRequiredKey
 import com.farcsal.sample.repository.postgresql.util.mapper.toLocalDateTime
-import com.farcsal.sample.repository.postgresql.util.paging.pageBy
+import com.farcsal.sample.repository.framework.dsl.pageBy
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import java.util.*

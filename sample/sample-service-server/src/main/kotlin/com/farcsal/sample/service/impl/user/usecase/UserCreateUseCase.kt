@@ -20,7 +20,7 @@ import com.farcsal.sample.repository.api.user.model.UserCreateDto
 import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
 import com.farcsal.sample.service.api.user.model.User
 import com.farcsal.sample.service.api.user.model.UserCreateRequest
-import com.farcsal.sample.service.impl.util.framework.annotation.UseCase
+import com.farcsal.sample.service.framework.annotation.UseCase
 import com.farcsal.sample.service.impl.util.generatePasswordHash
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional

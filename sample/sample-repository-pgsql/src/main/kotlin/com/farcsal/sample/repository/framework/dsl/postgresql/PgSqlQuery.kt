@@ -28,6 +28,9 @@ import com.querydsl.sql.postgresql.AbstractPostgreSQLQuery
 import java.sql.Connection
 import java.sql.SQLException
 import java.util.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 class PgSqlQuery<T> : AbstractPostgreSQLQuery<T, PgSqlQuery<T>> {
 
@@ -77,15 +80,23 @@ class PgSqlQuery<T> : AbstractPostgreSQLQuery<T, PgSqlQuery<T>> {
         q.addFlag(QueryFlag(QueryFlag.Position.START, "explain "))
         try {
             q.results.use { rs ->
-                val lines: MutableList<String> = ArrayList()
-                while (rs.next()) {
-                    lines.add(rs.getString(1))
+                val lines = buildList {
+                    while (rs.next()) {
+                        add(rs.getString(1))
+                    }
                 }
                 return PgSqlQueryPlan(Collections.unmodifiableList(lines))
             }
         } catch (ex: SQLException) {
             throw configuration.translate(ex)
         }
+    }
+
+    @OptIn(ExperimentalContracts::class)
+    fun explain(consumer: (PgSqlQueryPlan) -> Unit): PgSqlQuery<T> {
+        contract { callsInPlace(consumer, InvocationKind.EXACTLY_ONCE) }
+        consumer(explain())
+        return this
     }
 
     override fun fetchOne(): T? {

@@ -19,14 +19,13 @@ import com.farcsal.sample.testengine.clock.TestClock
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.Clock
-import java.time.ZoneId
 
 @Configuration
 class TestTimeConfiguration {
 
     @Bean
     fun clock(): Clock {
-        return TestClock(ZoneId.of("UTC"))
+        return TestClock()
     }
 
 }

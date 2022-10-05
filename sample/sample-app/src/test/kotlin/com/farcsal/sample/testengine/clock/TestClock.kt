@@ -19,7 +19,7 @@ import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
 
-class TestClock(private val zoneId: ZoneId) : Clock() {
+class TestClock(private val zoneId: ZoneId = ZoneId.of("UTC")) : Clock() {
 
     private var instant: Instant = Instant.EPOCH
 

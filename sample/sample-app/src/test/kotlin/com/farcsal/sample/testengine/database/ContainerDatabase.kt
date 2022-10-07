@@ -20,8 +20,12 @@ import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
 import java.time.Duration
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 class ContainerDatabase private constructor(private val container: JdbcDatabaseContainer<*>) : Database {
+
+    private val lock = ReentrantLock()
 
     constructor() : this(createContainer())
 
@@ -52,7 +56,7 @@ class ContainerDatabase private constructor(private val container: JdbcDatabaseC
         get() = container.isRunning
 
     override fun start(): Database {
-        synchronized(container) {
+        lock.withLock {
             expectNotRunning()
             container.start()
             return this
@@ -60,14 +64,14 @@ class ContainerDatabase private constructor(private val container: JdbcDatabaseC
     }
 
     override fun stop() {
-        synchronized(container) {
+        lock.withLock {
             expectRunning()
             container.stop()
         }
     }
 
     override fun clean() {
-        synchronized(container) {
+        lock.withLock {
             expectRunning()
             createFlyway().apply {
                 clean()
@@ -76,7 +80,7 @@ class ContainerDatabase private constructor(private val container: JdbcDatabaseC
     }
 
     override fun create() {
-        synchronized(container) {
+        lock.withLock {
             expectRunning()
             createFlyway().apply {
                 migrate()

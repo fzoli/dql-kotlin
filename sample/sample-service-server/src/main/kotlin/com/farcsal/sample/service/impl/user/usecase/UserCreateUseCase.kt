@@ -21,6 +21,8 @@ import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
 import com.farcsal.sample.service.api.user.model.User
 import com.farcsal.sample.service.api.user.model.UserCreateRequest
 import com.farcsal.sample.service.framework.annotation.UseCase
+import com.farcsal.sample.service.framework.time.second
+import com.farcsal.sample.service.framework.time.sleep.Delayer
 import com.farcsal.sample.service.impl.util.generatePasswordHash
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -30,6 +32,7 @@ import java.time.Instant
 @UseCase
 open class UserCreateUseCase @Autowired constructor(
     private val clock: Clock,
+    private val delayer: Delayer,
     private val userRepository: UserRepository,
 ) {
 
@@ -37,6 +40,7 @@ open class UserCreateUseCase @Autowired constructor(
     open fun create(
         request: UserCreateRequest
     ): User {
+        delayer.delay(1.second)
         val id = userRepository.create(UserCreateDto(
             level = request.level,
             name = request.name,

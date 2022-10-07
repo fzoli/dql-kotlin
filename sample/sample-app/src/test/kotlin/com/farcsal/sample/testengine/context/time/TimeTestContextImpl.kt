@@ -15,6 +15,9 @@
  */
 package com.farcsal.sample.testengine.context.time
 
+import com.farcsal.sample.service.framework.time.Day
+import com.farcsal.sample.service.framework.time.Millisecond
+import com.farcsal.sample.service.framework.time.Second
 import com.farcsal.sample.testengine.clock.TestClock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

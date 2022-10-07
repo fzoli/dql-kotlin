@@ -13,26 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.configuration
+package com.farcsal.sample.service.framework.time.sleep
 
-import com.farcsal.sample.service.framework.time.sleep.Delayer
-import com.farcsal.sample.testengine.clock.TestClock
-import com.farcsal.sample.testengine.clock.TestClockDelayer
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import java.time.Clock
+import com.farcsal.sample.service.framework.time.TimeUnit
 
-@Configuration
-class TestTimeConfiguration {
-
-    @Bean
-    fun clock(): Clock {
-        return TestClock()
-    }
-
-    @Bean
-    fun sleeper(clock: TestClock): Delayer {
-        return TestClockDelayer(clock)
-    }
-
+interface Delayer {
+    fun delay(unit: TimeUnit)
 }

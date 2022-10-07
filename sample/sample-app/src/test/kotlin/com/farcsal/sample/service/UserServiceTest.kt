@@ -21,7 +21,7 @@ import com.farcsal.sample.service.api.user.UserService
 import com.farcsal.sample.service.api.user.model.UserCreateRequest
 import com.farcsal.sample.service.api.util.model.PhoneNumber
 import com.farcsal.sample.testengine.annotation.IntegrationTest
-import com.farcsal.sample.testengine.context.time.second
+import com.farcsal.sample.service.framework.time.second
 import com.farcsal.sample.testengine.runTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -44,13 +44,15 @@ class UserServiceTest {
             emailAddress = "one@example",
             phoneNumbers = setOf(),
         ))
-        client.userService.create(UserCreateRequest(
+        Assertions.assertEquals(Instant.ofEpochMilli(2000), user.creationTime)
+        val user2 = client.userService.create(UserCreateRequest(
             level = 2,
             name = "Two",
             password = "password",
             emailAddress = "two@example",
             phoneNumbers = setOf(PhoneNumber("1234", PhoneNumberType.WORK)),
         ))
+        Assertions.assertEquals(Instant.ofEpochMilli(3000), user2.creationTime)
         val resultLocal = userService.list(
             filter = {
                 id.eq(user.id) and level.goe(1) or

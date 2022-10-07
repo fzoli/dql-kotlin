@@ -16,6 +16,8 @@
 package com.farcsal.sample.configuration
 
 import com.farcsal.sample.framework.IgnoredByIntegrationTest
+import com.farcsal.sample.service.framework.time.sleep.Delayer
+import com.farcsal.sample.service.framework.time.sleep.ThreadDelayer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.Clock
@@ -27,6 +29,11 @@ class TimeConfiguration {
     @Bean
     fun clock(): Clock {
         return Clock.systemUTC()
+    }
+
+    @Bean
+    fun sleeper(): Delayer {
+        return ThreadDelayer
     }
 
 }

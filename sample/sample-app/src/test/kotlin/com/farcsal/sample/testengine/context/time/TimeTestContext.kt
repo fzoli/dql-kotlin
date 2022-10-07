@@ -15,6 +15,9 @@
  */
 package com.farcsal.sample.testengine.context.time
 
+import com.farcsal.sample.service.framework.time.Day
+import com.farcsal.sample.service.framework.time.Millisecond
+import com.farcsal.sample.service.framework.time.Second
 import java.time.Instant
 import java.time.ZoneId
 

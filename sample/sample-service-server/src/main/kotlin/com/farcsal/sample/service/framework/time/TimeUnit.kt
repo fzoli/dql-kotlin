@@ -13,10 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.testengine.context.time
+package com.farcsal.sample.service.framework.time
+
+interface TimeUnit {
+    fun toMilliseconds(): Long
+}
 
 @JvmInline
-value class Millisecond(val value: Long)
+value class Millisecond(val value: Long): TimeUnit {
+    override fun toMilliseconds(): Long {
+        return value
+    }
+}
 
 val Long.ms: Millisecond
     get() = Millisecond(this)
@@ -25,7 +33,11 @@ val Int.ms: Millisecond
     get() = Millisecond(this.toLong())
 
 @JvmInline
-value class Second(val value: Long)
+value class Second(val value: Long): TimeUnit {
+    override fun toMilliseconds(): Long {
+        return value * 1000L
+    }
+}
 
 val Long.second: Second
     get() = Second(this)
@@ -34,7 +46,11 @@ val Int.second: Second
     get() = Second(this.toLong())
 
 @JvmInline
-value class Day(val value: Long)
+value class Day(val value: Long): TimeUnit {
+    override fun toMilliseconds(): Long {
+        return value * 24 * 60 * 60 * 1000L
+    }
+}
 
 val Long.day: Day
     get() = Day(this)

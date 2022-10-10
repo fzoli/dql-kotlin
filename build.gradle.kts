@@ -30,7 +30,7 @@ buildscript {
 
 plugins {
     id("org.ajoberstar.grgit").version("5.0.0")
-    id("org.jetbrains.dokka").version("1.7.10")
+    id("org.jetbrains.dokka").version("1.7.20")
 }
 
 val signingKey: String? by project

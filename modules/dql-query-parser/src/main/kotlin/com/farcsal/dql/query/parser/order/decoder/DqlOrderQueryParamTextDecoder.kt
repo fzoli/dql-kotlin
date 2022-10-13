@@ -20,16 +20,18 @@ import java.nio.charset.StandardCharsets
 
 object DqlOrderQueryParamTextDecoder : DqlOrderTextDecoder {
 
-    override fun decode(raw: String?): String? {
+    override fun decode(raw: String): String {
         return replaceFirstSpaceToPlus(decodeUtf8Param(raw))
     }
 
-    private fun decodeUtf8Param(orderText: String?): String? {
-        return if (orderText == null) null else URLDecoder.decode(orderText, StandardCharsets.UTF_8)
+    private fun decodeUtf8Param(orderText: String): String {
+        return URLDecoder.decode(orderText, StandardCharsets.UTF_8)
     }
 
-    private fun replaceFirstSpaceToPlus(orderText: String?): String? {
-        return orderText?.replaceFirst("^\\s".toRegex(), "+")?.replace(",\\s".toRegex(), ",+")
+    private fun replaceFirstSpaceToPlus(orderText: String): String {
+        return orderText
+            .replaceFirst("^\\s".toRegex(), "+")
+            .replace(",\\s".toRegex(), ",+")
     }
 
 }

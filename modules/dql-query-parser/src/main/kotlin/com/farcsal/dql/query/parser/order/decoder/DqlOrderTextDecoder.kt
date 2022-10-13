@@ -16,5 +16,5 @@
 package com.farcsal.dql.query.parser.order.decoder
 
 interface DqlOrderTextDecoder {
-    fun decode(raw: String?): String?
+    fun decode(raw: String): String
 }

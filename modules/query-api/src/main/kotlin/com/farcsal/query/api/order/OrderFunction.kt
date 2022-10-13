@@ -19,10 +19,12 @@ import com.farcsal.query.api.Order
 
 typealias OrderFunction<T> = T.() -> List<Order>
 
-fun <T> OrderFunction<T>?.evaluate(expression: T): List<Order> {
+fun <T> OrderFunction<T>?.evaluate(expression: T, fallback: T.() -> List<Order> = { listOf() }): List<Order> {
     return if (this == null) {
         listOf()
     } else {
         this(expression)
+    }.ifEmpty {
+        fallback(expression)
     }
 }

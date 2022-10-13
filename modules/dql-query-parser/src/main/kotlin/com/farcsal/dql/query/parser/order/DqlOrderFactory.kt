@@ -29,21 +29,10 @@ class DqlOrderFactory {
     fun create(
         rawOrder: String?,
         expressionResolver: DqlOrderFieldExpressionResolver,
-        fallback: List<Order>? = null
     ): List<Order> {
-        if (fallback != null) {
-            // Empty order list is invalid on API layer.
-            // Relational databases would return random elements.
-            require(fallback.isNotEmpty()) { "Empty fallback" }
-        }
         val orderText = orderTextDecoder.decode(rawOrder)
-        if (orderText == null || orderText.isEmpty()) {
-            if (fallback != null) {
-                return fallback
-            }
-            // Empty order list is invalid on API layer.
-            // Relational databases would return random elements.
-            throw IllegalArgumentException("Order is required")
+        if (orderText.isNullOrEmpty()) {
+            return listOf()
         }
         return parseOrderFields(orderText) { fieldText, direction, nullStrategy ->
             toOrder(expressionResolver.getExpression(fieldText), direction, nullStrategy)

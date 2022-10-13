@@ -28,13 +28,11 @@ class OrderFunctionFactory(
 
     fun <T> create(
         order: String?,
-        fallbackFn: OrderFunction<T>? = null,
         resolverFn: DqlOrderFieldExpressionResolverFn<T>
     ): OrderFunction<T> {
         return {
             val resolver = resolverFn(this).decorate()
-            val fallback = if (fallbackFn != null) fallbackFn(this) else null
-            factory.create(order, resolver, fallback)
+            factory.create(order, resolver)
         }
     }
 

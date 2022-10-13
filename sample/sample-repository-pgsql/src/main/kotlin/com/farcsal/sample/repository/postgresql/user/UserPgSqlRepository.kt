@@ -67,7 +67,7 @@ open class UserPgSqlRepository @Autowired constructor(
                 .where(filter.evaluate(createFilterField(user, userPhoneNumber)))
                 .groupBy(user.id)
             ))
-            .orderBy(order.evaluate(createOrderField(user)))
+            .orderBy(order.evaluate(createOrderField(user)) { listOf(creationTime.asc()) })
             .pageBy(paging)
             .fetch()
             .toDto(user)

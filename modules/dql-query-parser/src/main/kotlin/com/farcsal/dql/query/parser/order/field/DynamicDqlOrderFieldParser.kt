@@ -21,8 +21,8 @@ import com.farcsal.query.api.order.OrderFunction
 
 class DynamicDqlOrderFieldParser(private val functionFactory: OrderFunctionFactory) {
 
-    fun <T: Any> parseOrder(order: String?, fallback: OrderFunction<T>? = null): OrderFunction<T> {
-        return GeneralDqlOrderFieldParser<T>(functionFactory, fallback).parseOrder(order)
+    fun <T: Any> parseOrder(order: String?): OrderFunction<T> {
+        return GeneralDqlOrderFieldParser<T>(functionFactory).parseOrder(order)
     }
 
 }

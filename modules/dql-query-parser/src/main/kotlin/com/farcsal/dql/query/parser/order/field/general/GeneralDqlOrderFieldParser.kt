@@ -21,11 +21,10 @@ import com.farcsal.query.api.order.OrderFunction
 
 class GeneralDqlOrderFieldParser<T : Any>(
     private val functionFactory: OrderFunctionFactory,
-    private val fallbackOrderFunction: OrderFunction<T>? = null
 ) : DqlOrderFieldParser<T> {
 
     override fun parseOrder(order: String?): OrderFunction<T> {
-        return functionFactory.create(order, fallbackOrderFunction) {
+        return functionFactory.create(order) {
             GeneralDqlOrderFieldExpressionResolver(this)
         }
     }

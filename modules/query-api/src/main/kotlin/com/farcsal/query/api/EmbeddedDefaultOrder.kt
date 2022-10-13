@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.sample.order
+package com.farcsal.query.api
 
-import com.farcsal.dql.query.parser.sample.PersonNameFields
-import com.farcsal.query.api.DefaultOrder
-import com.farcsal.query.api.OrderField
-import com.farcsal.query.api.SerializedField
-
-data class PersonNameOrderField (
-    @field:DefaultOrder(priority = 0)
-    @field:SerializedField(PersonNameFields.FIRST_NAME)
-    val firstName: OrderField,
-
-    @field:DefaultOrder(priority = 1)
-    @field:SerializedField(PersonNameFields.LAST_NAME)
-    val lastName: OrderField
-)
+/**
+ * Reflection-based helper annotation.
+ *
+ * Preferred to use on fields with object type like this: @field:EmbeddedDefaultOrder
+ */
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
+@MustBeDocumented
+annotation class EmbeddedDefaultOrder

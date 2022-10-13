@@ -17,15 +17,16 @@ package com.farcsal.dql.query.parser.order.field.general
 
 import com.farcsal.dql.query.parser.order.OrderFunctionFactory
 import com.farcsal.dql.query.parser.order.field.DqlOrderFieldParser
+import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
 import com.farcsal.query.api.order.OrderFunction
 
 class GeneralDqlOrderFieldParser<T : Any>(
     private val functionFactory: OrderFunctionFactory,
-    private val fallbackOrderFunction: OrderFunction<T>? = null
+    private val fallbackDecorator: OrderFieldDecorator,
 ) : DqlOrderFieldParser<T> {
 
     override fun parseOrder(order: String?): OrderFunction<T> {
-        return functionFactory.create(order, fallbackOrderFunction) {
+        return functionFactory.create(order, createFallback(fallbackDecorator)) {
             GeneralDqlOrderFieldExpressionResolver(this)
         }
     }

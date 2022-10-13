@@ -15,10 +15,22 @@
  */
 package com.farcsal.dql.query.parser.order.resolver.decorator
 
+import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
 import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolver
+import com.farcsal.query.api.OrderField
 
-object DefaultDqlOrderFieldExpressionResolverDecorator : DqlOrderFieldExpressionResolverDecorator {
+class DefaultDqlOrderFieldExpressionResolverDecorator(private val orderFieldDecorator: OrderFieldDecorator) : DqlOrderFieldExpressionResolverDecorator {
     override fun decorate(resolver: DqlOrderFieldExpressionResolver): DqlOrderFieldExpressionResolver {
-        return resolver
+        return DecoratedDqlOrderFieldExpressionResolver(resolver, orderFieldDecorator)
+    }
+}
+
+private class DecoratedDqlOrderFieldExpressionResolver(
+    private val delegate: DqlOrderFieldExpressionResolver,
+    private val orderFieldDecorator: OrderFieldDecorator
+): DqlOrderFieldExpressionResolver {
+    override fun getExpression(field: String): OrderField {
+        val order = delegate.getExpression(field)
+        return orderFieldDecorator.decorate(order)
     }
 }

@@ -18,8 +18,10 @@ package com.farcsal.sample.configuration
 import com.farcsal.dql.query.parser.order.DqlOrderFactory
 import com.farcsal.dql.query.parser.order.OrderFunctionFactory
 import com.farcsal.dql.query.parser.order.field.DynamicDqlOrderFieldParser
+import com.farcsal.dql.query.parser.order.field.decorator.LocalizedOrderFieldDecorator
+import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
+import com.farcsal.dql.query.parser.order.resolver.decorator.DefaultDqlOrderFieldExpressionResolverDecorator
 import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
-import com.farcsal.dql.query.parser.util.locale.LocalizedDqlOrderFieldExpressionResolverDecorator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -32,17 +34,25 @@ class DqlOrderConfiguration {
     }
 
     @Bean
+    fun orderFieldDecorator(localeProvider: DqlLocaleProvider): OrderFieldDecorator {
+        return LocalizedOrderFieldDecorator(localeProvider)
+    }
+
+    @Bean
     fun orderFunctionFactory(
-        localeProvider: DqlLocaleProvider,
-        dqlOrderFactory: DqlOrderFactory
+        dqlOrderFactory: DqlOrderFactory,
+        orderFieldDecorator: OrderFieldDecorator,
     ): OrderFunctionFactory {
-        val decorator = LocalizedDqlOrderFieldExpressionResolverDecorator(localeProvider)
+        val decorator = DefaultDqlOrderFieldExpressionResolverDecorator(orderFieldDecorator)
         return OrderFunctionFactory(dqlOrderFactory, decorator)
     }
 
     @Bean
-    fun dynamicDqlOrderFieldParser(orderFunctionFactory: OrderFunctionFactory): DynamicDqlOrderFieldParser {
-        return DynamicDqlOrderFieldParser(orderFunctionFactory)
+    fun dynamicDqlOrderFieldParser(
+        orderFunctionFactory: OrderFunctionFactory,
+        orderFieldDecorator: OrderFieldDecorator,
+    ): DynamicDqlOrderFieldParser {
+        return DynamicDqlOrderFieldParser(orderFunctionFactory, orderFieldDecorator)
     }
 
 }

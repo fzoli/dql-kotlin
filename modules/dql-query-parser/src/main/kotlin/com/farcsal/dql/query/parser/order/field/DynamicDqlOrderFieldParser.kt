@@ -16,13 +16,18 @@
 package com.farcsal.dql.query.parser.order.field
 
 import com.farcsal.dql.query.parser.order.OrderFunctionFactory
+import com.farcsal.dql.query.parser.order.field.decorator.DefaultOrderFieldDecorator
+import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
 import com.farcsal.dql.query.parser.order.field.general.GeneralDqlOrderFieldParser
 import com.farcsal.query.api.order.OrderFunction
 
-class DynamicDqlOrderFieldParser(private val functionFactory: OrderFunctionFactory) {
+class DynamicDqlOrderFieldParser(
+    private val functionFactory: OrderFunctionFactory,
+    private val fallbackDecorator: OrderFieldDecorator = DefaultOrderFieldDecorator,
+) {
 
-    fun <T: Any> parseOrder(order: String?, fallback: OrderFunction<T>? = null): OrderFunction<T> {
-        return GeneralDqlOrderFieldParser<T>(functionFactory, fallback).parseOrder(order)
+    fun <T: Any> parseOrder(order: String?): OrderFunction<T> {
+        return GeneralDqlOrderFieldParser<T>(functionFactory, fallbackDecorator).parseOrder(order)
     }
 
 }

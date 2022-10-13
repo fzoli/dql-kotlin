@@ -15,11 +15,10 @@
  */
 package com.farcsal.sample.repository.api.user.model
 
-import com.farcsal.query.api.OrderField
-import com.farcsal.query.api.SerializedField
-import com.farcsal.query.api.StringOrderField
+import com.farcsal.query.api.*
 
 class UserOrderField(
+    @field:DefaultOrder(DefaultOrder.Direction.DESC, DefaultOrder.NullHandling.NULLS_FIRST)
     @field:SerializedField(UserFields.CREATION_TIME)
     val creationTime: OrderField,
     @field:SerializedField(UserFields.LEVEL)

@@ -16,12 +16,17 @@
 package com.farcsal.dql.query.parser.sample.order
 
 import com.farcsal.dql.query.parser.sample.PersonFields
+import com.farcsal.query.api.DefaultOrder
+import com.farcsal.query.api.EmbeddedDefaultOrder
 import com.farcsal.query.api.OrderField
 import com.farcsal.query.api.SerializedField
 
 data class PersonOrderField(
+    @field:EmbeddedDefaultOrder
     @field:SerializedField(PersonFields.NAME)
     val name: PersonNameOrderField,
+
+    @field:DefaultOrder(priority = 2)
     @field:SerializedField(PersonFields.AGE)
     val age: OrderField
 )

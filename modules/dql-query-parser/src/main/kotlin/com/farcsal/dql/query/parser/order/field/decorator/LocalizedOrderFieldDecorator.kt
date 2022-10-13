@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.sample.order
+package com.farcsal.dql.query.parser.order.field.decorator
 
-import com.farcsal.dql.query.parser.sample.PersonNameFields
-import com.farcsal.query.api.DefaultOrder
+import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
 import com.farcsal.query.api.OrderField
-import com.farcsal.query.api.SerializedField
+import com.farcsal.query.api.StringOrderField
 
-data class PersonNameOrderField (
-    @field:DefaultOrder(priority = 0)
-    @field:SerializedField(PersonNameFields.FIRST_NAME)
-    val firstName: OrderField,
+class LocalizedOrderFieldDecorator(private val localeProvider: DqlLocaleProvider): OrderFieldDecorator {
 
-    @field:DefaultOrder(priority = 1)
-    @field:SerializedField(PersonNameFields.LAST_NAME)
-    val lastName: OrderField
-)
+    override fun decorate(field: OrderField): OrderField {
+        val locale = localeProvider.getLocale()
+        if (locale != null && field is StringOrderField) {
+            return field.withLocale(locale)
+        }
+        return field
+    }
+
+}

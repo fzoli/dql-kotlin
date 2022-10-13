@@ -43,7 +43,7 @@ class UserRestController @Autowired constructor(
         @RequestParam(required = false, name = QueryParameters.LIMIT) limit: Int?,
     ): List<User> {
         val filter = dynamicDqlFilterFieldParser.parseFilter<UserFilterField>(filterDql)
-        val order = dynamicDqlOrderFieldParser.parseOrder<UserOrderField>(orderDql, fallback = { listOf(creationTime.asc()) })
+        val order = dynamicDqlOrderFieldParser.parseOrder<UserOrderField>(orderDql)
         return userService.list(filter, order, Paging(offset, limit))
     }
 

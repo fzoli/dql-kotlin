@@ -37,7 +37,7 @@ class DqlOrderFactory {
             require(fallback.isNotEmpty()) { "Empty fallback" }
         }
         val orderText = orderTextDecoder.decode(rawOrder)
-        if (orderText == null || orderText.isEmpty()) {
+        if (orderText.isNullOrEmpty()) {
             if (fallback != null) {
                 return fallback
             }

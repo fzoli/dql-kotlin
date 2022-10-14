@@ -19,16 +19,21 @@ import com.farcsal.query.api.OrderField
 import com.farcsal.query.api.StringOrderField
 import com.farcsal.query.querydsl.QOrderField
 import com.farcsal.query.querydsl.QStringOrderField
+import com.querydsl.core.types.Path
 import com.querydsl.core.types.dsl.ComparableExpressionBase
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.core.types.dsl.StringExpression
+import com.querydsl.core.types.dsl.StringPath
 import java.util.*
 
-fun ComparableExpressionBase<*>.toOrderField(): OrderField {
+fun <E, V> E.toOrderField(): OrderField
+    where E: ComparableExpressionBase<V>,
+          E: Path<V>,
+          V: Comparable<V> {
     return QOrderField(this)
 }
 
-fun StringExpression.toStringOrderField(): StringOrderField {
+fun StringPath.toStringOrderField(): StringOrderField {
     return QStringOrderField(this) { locale -> createStringOrderTemplate(locale, this) }
 }
 

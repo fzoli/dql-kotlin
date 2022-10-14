@@ -16,12 +16,13 @@
 package com.farcsal.dql.query.parser.sample.order
 
 import com.farcsal.query.querydsl.QOrderField
+import com.farcsal.query.querydsl.QStringOrderField
 import com.querydsl.core.types.dsl.Expressions
 
 object PersonOrderFieldFactory {
 
-    private val FIRST_NAME = QOrderField(Expressions.stringPath("first_name"))
-    private val LAST_NAME = QOrderField(Expressions.stringPath("last_name"))
+    private val FIRST_NAME = QStringOrderField(Expressions.stringPath("first_name"))
+    private val LAST_NAME = QStringOrderField(Expressions.stringPath("last_name"))
     private val AGE = QOrderField(Expressions.numberPath(Long::class.javaObjectType, "age"))
 
     fun createPersonField(): PersonOrderField {

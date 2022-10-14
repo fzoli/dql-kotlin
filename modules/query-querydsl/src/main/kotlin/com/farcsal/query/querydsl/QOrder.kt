@@ -17,8 +17,9 @@ package com.farcsal.query.querydsl
 
 import com.farcsal.query.api.Order
 import com.querydsl.core.types.OrderSpecifier
+import com.querydsl.core.types.Path
 
-class QOrder(private val delegate: OrderSpecifier<*>) : Order {
+class QOrder(private val path: Path<*>, private val delegate: OrderSpecifier<*>) : Order {
 
     companion object {
 
@@ -29,15 +30,24 @@ class QOrder(private val delegate: OrderSpecifier<*>) : Order {
     }
 
     override fun nullsFirst(): Order {
-        return QOrder(delegate.nullsFirst())
+        return QOrder(path, delegate.nullsFirst())
     }
 
     override fun nullsLast(): Order {
-        return QOrder(delegate.nullsLast())
+        return QOrder(path, delegate.nullsLast())
     }
 
     override fun toString(): String {
         return delegate.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val o = other as? QOrder ?: return false
+        return path == o.path
+    }
+
+    override fun hashCode(): Int {
+        return path.hashCode()
     }
 
 }

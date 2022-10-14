@@ -17,16 +17,20 @@ package com.farcsal.query.querydsl
 
 import com.farcsal.query.api.Order
 import com.farcsal.query.api.OrderField
+import com.querydsl.core.types.Path
 import com.querydsl.core.types.dsl.ComparableExpressionBase
 
-class QOrderField(private val delegate: ComparableExpressionBase<*>) : OrderField {
+class QOrderField<E, V>(private val delegate: E) : OrderField
+        where E: ComparableExpressionBase<V>,
+              E: Path<V>,
+              V: Comparable<V> {
 
     override fun asc(): Order {
-        return QOrder(delegate.asc())
+        return QOrder(delegate, delegate.asc())
     }
 
     override fun desc(): Order {
-        return QOrder(delegate.desc())
+        return QOrder(delegate, delegate.desc())
     }
 
 }

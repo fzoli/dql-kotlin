@@ -54,6 +54,15 @@ internal class DqlOrder(
         return DqlOrder(type, NullStrategy.LAST, field)
     }
 
+    override fun equals(other: Any?): Boolean {
+        val o = other as? DqlOrder ?: return false
+        return o.field == field
+    }
+
+    override fun hashCode(): Int {
+        return field.hashCode()
+    }
+
 }
 
 fun List<Order>.toDql(): String {

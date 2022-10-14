@@ -17,14 +17,23 @@ package com.farcsal.query.kt.filter
 
 import com.farcsal.query.api.Order
 
-class KOrder<T : Any>(val comparator: Comparator<in T>) : Order {
+class KOrder<T : Any>(private val field: KOrderField<*>, val comparator: Comparator<in T>) : Order {
 
     override fun nullsFirst(): Order {
-        return KOrder(nullsFirst(comparator))
+        return KOrder(field, nullsFirst(comparator))
     }
 
     override fun nullsLast(): Order {
-        return KOrder(nullsLast(comparator))
+        return KOrder(field, nullsLast(comparator))
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val o = other as? KOrder<*> ?: return false
+        return o.field === field
+    }
+
+    override fun hashCode(): Int {
+        return field.hashCode()
     }
 
 }

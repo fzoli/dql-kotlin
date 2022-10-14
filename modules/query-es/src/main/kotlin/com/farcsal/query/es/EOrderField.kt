@@ -17,9 +17,11 @@ package com.farcsal.query.es
 
 import com.farcsal.query.api.Order
 import com.farcsal.query.api.OrderField
+import com.farcsal.query.api.StringOrderField
 import org.elasticsearch.search.sort.SortOrder
+import java.util.*
 
-class EOrderField(private val fieldName: String) : OrderField {
+class EOrderField(private val fieldName: String) : OrderField, StringOrderField {
 
     override fun asc(): Order {
         return EOrder(fieldName, SortOrder.ASC)
@@ -27,6 +29,10 @@ class EOrderField(private val fieldName: String) : OrderField {
 
     override fun desc(): Order {
         return EOrder(fieldName, SortOrder.DESC)
+    }
+
+    override fun withLocale(locale: Locale?): StringOrderField {
+        return this
     }
 
 }

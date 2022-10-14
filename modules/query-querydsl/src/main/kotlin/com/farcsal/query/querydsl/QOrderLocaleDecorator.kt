@@ -18,4 +18,4 @@ package com.farcsal.query.querydsl
 import com.querydsl.core.types.dsl.ComparableExpressionBase
 import java.util.Locale
 
-typealias QOrderLocaleDecorator = (Locale?) -> ComparableExpressionBase<*>
+typealias QOrderLocaleDecorator = (Locale?) -> ComparableExpressionBase<String>

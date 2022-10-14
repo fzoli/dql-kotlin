@@ -18,28 +18,25 @@ package com.farcsal.query.querydsl
 import com.farcsal.query.api.Order
 import com.farcsal.query.api.StringOrderField
 import com.querydsl.core.types.dsl.ComparableExpressionBase
+import com.querydsl.core.types.dsl.StringPath
 import java.util.*
 
 class QStringOrderField(
-    private val delegate: ComparableExpressionBase<*>,
-    private var localeDecorator: QOrderLocaleDecorator
+    private val path: StringPath,
+    private val delegate: ComparableExpressionBase<String> = path,
+    private var localeDecorator: QOrderLocaleDecorator = { delegate }
 ) : StringOrderField {
 
-    constructor(delegate: ComparableExpressionBase<*>) : this(
-        delegate = delegate,
-        localeDecorator = { delegate }
-    )
-
     override fun withLocale(locale: Locale?): StringOrderField {
-        return QStringOrderField(localeDecorator(locale), localeDecorator)
+        return QStringOrderField(path, localeDecorator(locale), localeDecorator)
     }
 
     override fun asc(): Order {
-        return QOrder(delegate.asc())
+        return QOrder(path, delegate.asc())
     }
 
     override fun desc(): Order {
-        return QOrder(delegate.desc())
+        return QOrder(path, delegate.desc())
     }
 
 }

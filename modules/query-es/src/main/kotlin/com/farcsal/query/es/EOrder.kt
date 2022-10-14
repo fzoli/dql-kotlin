@@ -55,4 +55,13 @@ class EOrder(
         return EOrder(fieldName, sortOrder, "_last")
     }
 
+    override fun equals(other: Any?): Boolean {
+        val o = other as? EOrder ?: return false
+        return o.fieldName == fieldName
+    }
+
+    override fun hashCode(): Int {
+        return fieldName.hashCode()
+    }
+
 }

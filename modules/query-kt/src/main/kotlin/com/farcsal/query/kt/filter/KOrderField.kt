@@ -17,15 +17,22 @@ package com.farcsal.query.kt.filter
 
 import com.farcsal.query.api.Order
 import com.farcsal.query.api.OrderField
+import com.farcsal.query.api.StringOrderField
+import java.util.*
+import kotlin.Comparator
 
-class KOrderField<T : Any>(private val ascComparator: Comparator<in T>) : OrderField {
+class KOrderField<T : Any>(private val ascComparator: Comparator<in T>) : OrderField, StringOrderField {
 
     override fun asc(): Order {
-        return KOrder(ascComparator)
+        return KOrder(this, ascComparator)
     }
 
     override fun desc(): Order {
-        return KOrder(ascComparator.reversed())
+        return KOrder(this, ascComparator.reversed())
+    }
+
+    override fun withLocale(locale: Locale?): StringOrderField {
+        return this
     }
 
 }

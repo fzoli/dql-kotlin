@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.order.resolver.decorator
+package com.farcsal.dql.query.parser.order.field.decorator
 
-import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolver
+import com.farcsal.query.api.OrderField
 
-internal interface DqlOrderFieldExpressionResolverDecorator {
-    fun decorate(resolver: DqlOrderFieldExpressionResolver): DqlOrderFieldExpressionResolver
+object DefaultOrderFieldDecorator : OrderFieldDecorator {
+    override fun decorate(field: OrderField): OrderField {
+        return field
+    }
 }

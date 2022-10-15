@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.order.resolver.decorator
+package com.farcsal.dql.query.parser.order.field.decorator
 
-import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolver
+import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
+import com.farcsal.query.api.OrderField
+import com.farcsal.query.api.StringOrderField
 
-internal interface DqlOrderFieldExpressionResolverDecorator {
-    fun decorate(resolver: DqlOrderFieldExpressionResolver): DqlOrderFieldExpressionResolver
+class LocalizedOrderFieldDecorator(private val localeProvider: DqlLocaleProvider): OrderFieldDecorator {
+
+    override fun decorate(field: OrderField): OrderField {
+        val locale = localeProvider.getLocale()
+        if (locale != null && field is StringOrderField) {
+            return field.withLocale(locale)
+        }
+        return field
+    }
+
 }

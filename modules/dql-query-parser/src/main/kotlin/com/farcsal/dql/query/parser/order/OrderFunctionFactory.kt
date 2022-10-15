@@ -15,16 +15,19 @@
  */
 package com.farcsal.dql.query.parser.order
 
+import com.farcsal.dql.query.parser.order.field.decorator.DefaultOrderFieldDecorator
+import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
 import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolver
 import com.farcsal.dql.query.parser.order.resolver.DqlOrderFieldExpressionResolverFn
 import com.farcsal.dql.query.parser.order.resolver.decorator.DefaultDqlOrderFieldExpressionResolverDecorator
-import com.farcsal.dql.query.parser.order.resolver.decorator.DqlOrderFieldExpressionResolverDecorator
 import com.farcsal.query.api.order.OrderFunction
 
 class OrderFunctionFactory(
     private val factory: DqlOrderFactory,
-    private val decorator: DqlOrderFieldExpressionResolverDecorator = DefaultDqlOrderFieldExpressionResolverDecorator,
+    orderFieldDecorator: OrderFieldDecorator = DefaultOrderFieldDecorator,
 ) {
+
+    private val decorator = DefaultDqlOrderFieldExpressionResolverDecorator(orderFieldDecorator)
 
     fun <T> create(
         order: String?,

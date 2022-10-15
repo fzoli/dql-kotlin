@@ -30,13 +30,10 @@ class DqlOrderFactory {
         rawOrder: String?,
         expressionResolver: DqlOrderFieldExpressionResolver,
     ): List<Order> {
-        if (rawOrder == null) {
+        if (rawOrder.isNullOrEmpty()) {
             return listOf()
         }
         val orderText = orderTextDecoder.decode(rawOrder)
-        if (orderText.isEmpty()) {
-            throw IllegalArgumentException("Empty order")
-        }
         return parseOrderFields(orderText) { fieldText, direction, nullStrategy ->
             toOrder(expressionResolver.getExpression(fieldText), direction, nullStrategy)
         }

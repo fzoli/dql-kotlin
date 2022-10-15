@@ -40,7 +40,7 @@ class DqlFilterFactory(
             val resolver = DqlCriteriaExpressionResolver(
                 DqlMethodInvoker(expressionResolver, fieldSelector)
             )
-            if (query == null || query.isEmpty()) {
+            if (query.isNullOrEmpty()) {
                 null
             } else {
                 resolver.resolve(dqlResolver.resolve(query))

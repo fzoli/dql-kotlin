@@ -31,7 +31,7 @@ class ElasticsearchTest {
         sourceBuilder.addFilter(criteria)
         sourceBuilder.addOrders(orders)
 
-        Assertions.assertEquals("{\"query\":{\"bool\":{\"must\":[{\"bool\":{\"must\":[{\"range\":{\"age\":{\"from\":10,\"to\":null,\"include_lower\":false,\"include_upper\":true,\"boost\":1.0}}},{\"range\":{\"age\":{\"from\":null,\"to\":100,\"include_lower\":true,\"include_upper\":false,\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}},\"sort\":[{\"age\":{\"order\":\"asc\"}}]}", sourceBuilder.toString())
+        Assertions.assertEquals("{\"query\":{\"bool\":{\"must\":[{\"bool\":{\"must\":[{\"range\":{\"age\":{\"gt\":10,\"boost\":1.0}}},{\"range\":{\"age\":{\"lt\":100,\"boost\":1.0}}}],\"boost\":1.0}}],\"boost\":1.0}},\"sort\":[{\"age\":{\"order\":\"asc\"}}]}", sourceBuilder.toString())
     }
 
 }

@@ -23,7 +23,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.palantir.gradle.docker:gradle-docker:0.34.0")
+        classpath("com.palantir.gradle.docker:gradle-docker:0.35.0")
     }
 }
 

@@ -1,6 +1,6 @@
 # DQL
 
-[<img src="https://img.shields.io/maven-central/v/com.farcsal.dql/data-type.svg?label=latest%20release"/>](https://central.sonatype.dev/publisher/com.farcsal.dql)
+[<img src="https://img.shields.io/maven-central/v/com.farcsal.dql/data-type.svg?label=latest%20release"/>](https://central.sonatype.com/namespace/com.farcsal.dql)
 [<img src="https://img.shields.io/github/license/fzoli/dql-kotlin"/>](https://github.com/fzoli/dql-kotlin/blob/main/LICENSE)
 [<img src="https://github.com/fzoli/dql-kotlin/workflows/Test/badge.svg"/>](https://github.com/fzoli/dql-kotlin/actions/workflows/test.yml)
 

@@ -29,7 +29,7 @@ buildscript {
 }
 
 plugins {
-    id("org.ajoberstar.grgit").version("5.0.0")
+    id("org.ajoberstar.grgit").version("5.2.0")
     id("org.jetbrains.dokka").version("1.8.20")
 }
 

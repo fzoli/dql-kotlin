@@ -100,6 +100,7 @@ class ContainerDatabase private constructor(private val container: JdbcDatabaseC
         return Flyway
             .configure()
             .dataSource(container.jdbcUrl, container.username, container.password)
+            .cleanDisabled(false)
             .load()
     }
 

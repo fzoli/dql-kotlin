@@ -19,9 +19,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.flywaydb:flyway-core:9.4.0"
-        classpath "org.testcontainers:testcontainers:1.17.5"
-        classpath "org.testcontainers:postgresql:1.17.5"
+        classpath "org.flywaydb:flyway-core:9.19.4"
+        classpath "org.testcontainers:testcontainers:1.18.3"
+        classpath "org.testcontainers:postgresql:1.18.3"
         classpath "com.querydsl:querydsl-sql-codegen:5.0.0"
         classpath "com.querydsl:querydsl-codegen:5.0.0"
         // Annotation API was removed from JDK9 and codegen requires it at runtime

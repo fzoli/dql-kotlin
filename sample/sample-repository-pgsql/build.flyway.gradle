@@ -20,7 +20,7 @@ buildscript {
     }
     dependencies {
         classpath "org.yaml:snakeyaml:1.33"
-        classpath "org.flywaydb:flyway-core:9.4.0"
+        classpath "org.flywaydb:flyway-core:9.19.4"
     }
 }
 
@@ -29,7 +29,7 @@ configurations {
 }
 
 dependencies {
-    pgsqlFlyway "org.postgresql:postgresql:42.5.0"
+    pgsqlFlyway "org.postgresql:postgresql:42.6.0"
 }
 
 task recreatePgSqlDatabase(group: 'developer tools', description: 'Recreates the PostgreSQL database.') {

@@ -16,11 +16,12 @@
 
 plugins {
     `java-library`
+    kotlin("plugin.serialization") version "1.8.20"
 }
 
-val jackson_version: String by project
+val kotlinx_serialization_version: String by project
 
 dependencies {
     api(project(":sample-repository-api"))
-    implementation("com.fasterxml.jackson.core:jackson-annotations:$jackson_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
 }

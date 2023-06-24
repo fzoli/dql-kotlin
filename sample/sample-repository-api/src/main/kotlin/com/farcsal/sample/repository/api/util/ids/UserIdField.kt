@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.farcsal.sample.repository.api.util.ids
 
-plugins {
-    `java-library`
-}
+import com.farcsal.query.api.UuidField
+import com.farcsal.sample.repository.api.user.model.UserId
 
-dependencies {
+typealias UserIdField = UuidValueField<UserId>
+
+fun UuidField.asUserId(): UserIdField {
+    return UserIdField(this) { it.uuid }
 }

@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.farcsal.sample.repository.api.user.model
 
-plugins {
-    `java-library`
-}
+import java.util.*
 
-dependencies {
+@JvmInline
+value class UserId internal constructor(val uuid: UUID)
+
+fun UUID.asUserId(): UserId {
+    return UserId(this)
 }

@@ -22,11 +22,7 @@ import com.farcsal.query.api.order.evaluate
 import com.farcsal.query.querydsl.extension.query.orderBy
 import com.farcsal.query.querydsl.extension.query.where
 import com.farcsal.sample.repository.api.user.UserRepository
-import com.farcsal.sample.repository.api.user.model.UserCreateDto
-import com.farcsal.sample.repository.api.user.model.UserDto
-import com.farcsal.sample.repository.api.user.model.UserFilterField
-import com.farcsal.sample.repository.api.user.model.UserOrderField
-import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
+import com.farcsal.sample.repository.api.user.model.*
 import com.farcsal.sample.repository.api.util.Paging
 import com.farcsal.sample.repository.framework.dsl.postgresql.PgSqlDslProvider
 import com.farcsal.sample.repository.postgresql.dsl.QUser.user
@@ -39,7 +35,6 @@ import com.farcsal.sample.repository.postgresql.util.mapper.toLocalDateTime
 import com.farcsal.sample.repository.framework.dsl.pageBy
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 open class UserPgSqlRepository @Autowired constructor(
@@ -74,7 +69,7 @@ open class UserPgSqlRepository @Autowired constructor(
     }
 
     override fun queryPhoneNumbers(
-        userIds: Set<UUID>
+        userIds: Set<UserId>
     ): Set<UserPhoneNumberDto> {
         return dslProvider.createSqlQueryFactory()
             .select(
@@ -83,13 +78,13 @@ open class UserPgSqlRepository @Autowired constructor(
                 userPhoneNumber.type,
             )
             .from(userPhoneNumber)
-            .where(userPhoneNumber.userId.`in`(userIds))
+            .where(userPhoneNumber.userId.`in`(userIds.map { it.uuid }))
             .fetch()
             .toDto(userPhoneNumber)
             .toSet()
     }
 
-    override fun findById(id: UUID): UserDto? {
+    override fun findById(id: UserId): UserDto? {
         return dslProvider.createSqlQueryFactory()
             .select(
                 user.id,
@@ -99,24 +94,24 @@ open class UserPgSqlRepository @Autowired constructor(
                 user.emailAddress,
             )
             .from(user)
-            .where(user.id.eq(id))
+            .where(user.id.eq(id.uuid))
             .fetchOne()
             .toDto(user)
     }
 
-    override fun create(dto: UserCreateDto): UUID {
+    override fun create(dto: UserCreateDto): UserId {
         return dslProvider.createSqlInsertClause(user)
             .set(user.level, dto.level)
             .set(user.name, dto.name)
             .set(user.passwordHash, dto.passwordHash)
             .set(user.emailAddress, dto.emailAddress)
             .set(user.creationTime, dto.creationTime.toLocalDateTime())
-            .executeWithRequiredKey(user.id)
+            .executeWithRequiredKey(user.id).asUserId()
     }
 
     override fun addPhoneNumber(dto: UserPhoneNumberDto) {
         dslProvider.createSqlInsertClause(userPhoneNumber)
-            .set(userPhoneNumber.userId, dto.userId)
+            .set(userPhoneNumber.userId, dto.userId.uuid)
             .set(userPhoneNumber.value, dto.value)
             .set(userPhoneNumber.type, dto.type.name)
             .execute()

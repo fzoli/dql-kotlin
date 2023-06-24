@@ -15,32 +15,24 @@
  */
 package com.farcsal.sample.service.client
 
-import com.farcsal.sample.rest.util.jackson.time.IsoTimeModule
 import com.farcsal.sample.service.api.user.UserService
 import com.farcsal.sample.service.client.user.UserApi
 import com.farcsal.sample.service.client.user.UserServiceClient
 import com.farcsal.sample.service.client.util.LocaleInterceptor
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinFeature
-import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.jackson.JacksonConverterFactory
-import java.util.Locale
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ClientServices(
     baseUrl: String,
     locale: Locale = Locale.getDefault(),
 ) {
-
-    private val objectMapper = ObjectMapper()
-        .registerModule(IsoTimeModule())
-        .registerModule(KotlinModule.Builder()
-                .enable(KotlinFeature.StrictNullChecks)
-                .build())
 
     private val okHttpClient = OkHttpClient.Builder()
         .readTimeout(1L, TimeUnit.MINUTES)
@@ -56,7 +48,7 @@ class ClientServices(
         .client(okHttpClient)
         .baseUrl(baseUrl)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .build()
 
     val userService: UserService = UserServiceClient(retrofit.create(UserApi::class.java))

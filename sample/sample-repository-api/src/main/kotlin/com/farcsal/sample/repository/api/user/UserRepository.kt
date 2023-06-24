@@ -17,13 +17,8 @@ package com.farcsal.sample.repository.api.user
 
 import com.farcsal.query.api.filter.FilterFunction
 import com.farcsal.query.api.order.OrderFunction
-import com.farcsal.sample.repository.api.user.model.UserCreateDto
-import com.farcsal.sample.repository.api.user.model.UserDto
-import com.farcsal.sample.repository.api.user.model.UserFilterField
-import com.farcsal.sample.repository.api.user.model.UserOrderField
-import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
+import com.farcsal.sample.repository.api.user.model.*
 import com.farcsal.sample.repository.api.util.Paging
-import java.util.*
 
 interface UserRepository {
 
@@ -33,11 +28,11 @@ interface UserRepository {
         paging: Paging? = null,
     ): List<UserDto>
 
-    fun queryPhoneNumbers(userIds: Set<UUID>): Set<UserPhoneNumberDto>
+    fun queryPhoneNumbers(userIds: Set<UserId>): Set<UserPhoneNumberDto>
 
-    fun findById(id: UUID): UserDto?
+    fun findById(id: UserId): UserDto?
 
-    fun create(dto: UserCreateDto): UUID
+    fun create(dto: UserCreateDto): UserId
 
     fun addPhoneNumber(dto: UserPhoneNumberDto)
 

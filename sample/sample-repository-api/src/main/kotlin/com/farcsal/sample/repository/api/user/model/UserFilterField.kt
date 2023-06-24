@@ -17,11 +17,12 @@ package com.farcsal.sample.repository.api.user.model
 
 import com.farcsal.query.api.*
 import com.farcsal.sample.query.api.UnaccentStringField
+import com.farcsal.sample.repository.api.util.ids.UserIdField
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberFilterField
 
 class UserFilterField(
     @field:SerializedField(UserFields.ID)
-    val id: UuidField,
+    val id: UserIdField,
     @field:SerializedField(UserFields.CREATION_TIME)
     val creationTime: InstantField,
     @field:SerializedField(UserFields.LEVEL)

@@ -17,11 +17,13 @@ package com.farcsal.sample.service.api.util.model
 
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberFields
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberType
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PhoneNumber(
-    @field:JsonProperty(PhoneNumberFields.VALUE)
+    @SerialName(PhoneNumberFields.VALUE)
     val value: String,
-    @field:JsonProperty(PhoneNumberFields.TYPE)
+    @SerialName(PhoneNumberFields.TYPE)
     val type: PhoneNumberType,
 )

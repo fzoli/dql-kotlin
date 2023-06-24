@@ -16,6 +16,7 @@
 package com.farcsal.sample.repository.postgresql.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
+import com.farcsal.sample.repository.api.user.model.asUserId
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberType
 import com.farcsal.sample.repository.framework.dsl.require
 import com.farcsal.sample.repository.postgresql.dsl.QUserPhoneNumber
@@ -24,7 +25,7 @@ import com.querydsl.core.Tuple
 @JvmName("toRequiredDto")
 internal fun Tuple.toDto(phoneNumber: QUserPhoneNumber): UserPhoneNumberDto {
     return UserPhoneNumberDto(
-        userId = require(phoneNumber.userId),
+        userId = require(phoneNumber.userId).asUserId(),
         value = require(phoneNumber.value),
         type = PhoneNumberType.valueOf(require(phoneNumber.type)),
     )

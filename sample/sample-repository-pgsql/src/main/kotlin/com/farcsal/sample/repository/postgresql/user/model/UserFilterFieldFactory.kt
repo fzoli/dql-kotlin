@@ -16,6 +16,7 @@
 package com.farcsal.sample.repository.postgresql.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserFilterField
+import com.farcsal.sample.repository.api.util.ids.asUserId
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberFilterField
 import com.farcsal.sample.repository.postgresql.dsl.QUser
 import com.farcsal.sample.repository.postgresql.dsl.QUserPhoneNumber
@@ -23,7 +24,7 @@ import com.farcsal.sample.repository.postgresql.util.filter.*
 
 internal fun createFilterField(user: QUser, userPhoneNumber: QUserPhoneNumber): UserFilterField {
     return UserFilterField(
-        id = user.id.toUuidField(),
+        id = user.id.toUuidField().asUserId(),
         creationTime = user.creationTime.toInstantField(),
         level = user.level.toIntField(),
         name = user.name.toUnaccentStringField(),

@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.rest.util.jackson.time
+package com.farcsal.query.api
 
-import com.fasterxml.jackson.databind.module.SimpleModule
-import java.time.Instant
-
-class IsoTimeModule : SimpleModule() {
-    init {
-        addSerializer(Instant::class.java, InstantSerializer())
-        addDeserializer(Instant::class.java, InstantDeserializer())
-    }
+/**
+ * Kotlin value class support.
+ */
+interface ValueField<T : Field> {
+    val value: T
 }

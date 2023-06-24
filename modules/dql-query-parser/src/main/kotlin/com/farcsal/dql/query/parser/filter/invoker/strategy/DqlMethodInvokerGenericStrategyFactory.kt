@@ -16,11 +16,13 @@
 package com.farcsal.dql.query.parser.filter.invoker.strategy
 
 import com.farcsal.query.api.Field
+import com.farcsal.query.api.ValueField
 
 abstract class DqlMethodInvokerGenericStrategyFactory<T: Field> : DqlMethodInvokerStrategyFactory {
 
     final override fun create(expr: Field): DqlMethodInvokerStrategy? {
-        val field = cast(expr)
+        val value = (expr as? ValueField<*>)?.value ?: expr
+        val field = cast(value)
         if (field != null) {
             return createStrategy(field)
         }

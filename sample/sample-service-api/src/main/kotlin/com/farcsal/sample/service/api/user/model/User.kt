@@ -16,22 +16,28 @@
 package com.farcsal.sample.service.api.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserFields
+import com.farcsal.sample.repository.api.user.model.UserId
 import com.farcsal.sample.service.api.util.model.PhoneNumber
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.farcsal.sample.service.api.util.serializer.InstantSerializer
+import com.farcsal.sample.service.api.util.serializer.ids.UserIdSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.time.Instant
-import java.util.*
 
+@Serializable
 data class User(
-    @field:JsonProperty(UserFields.ID)
-    val id: UUID,
-    @field:JsonProperty(UserFields.CREATION_TIME)
+    @SerialName(UserFields.ID)
+    @Serializable(with = UserIdSerializer::class)
+    val id: UserId,
+    @SerialName(UserFields.CREATION_TIME)
+    @Serializable(with = InstantSerializer::class)
     val creationTime: Instant,
-    @field:JsonProperty(UserFields.LEVEL)
+    @SerialName(UserFields.LEVEL)
     val level: Int,
-    @field:JsonProperty(UserFields.NAME)
+    @SerialName(UserFields.NAME)
     val name: String,
-    @field:JsonProperty(UserFields.EMAIL_ADDRESS)
+    @SerialName(UserFields.EMAIL_ADDRESS)
     val emailAddress: String,
-    @field:JsonProperty(UserFields.PHONE_NUMBERS)
+    @SerialName(UserFields.PHONE_NUMBERS)
     val phoneNumbers: Set<PhoneNumber>,
 )

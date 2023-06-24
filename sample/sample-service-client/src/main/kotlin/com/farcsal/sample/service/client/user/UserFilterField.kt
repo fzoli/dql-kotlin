@@ -20,10 +20,11 @@ import com.farcsal.query.dql.*
 import com.farcsal.sample.query.dql.DqlUnaccentStringField
 import com.farcsal.sample.repository.api.user.model.UserFields
 import com.farcsal.sample.repository.api.user.model.UserFilterField
+import com.farcsal.sample.repository.api.util.ids.asUserId
 import com.farcsal.sample.service.client.util.model.phoneNumberFilterField
 
 internal fun userFilterField(prefix: String = "") = UserFilterField(
-    id = DqlUuidField(prefix + UserFields.ID),
+    id = DqlUuidField(prefix + UserFields.ID).asUserId(),
     creationTime = DqlInstantField(prefix + UserFields.CREATION_TIME),
     level = DqlIntField(prefix + UserFields.LEVEL),
     name = DqlUnaccentStringField(DqlStringField(prefix + UserFields.NAME)),

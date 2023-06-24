@@ -17,17 +17,19 @@ package com.farcsal.sample.service.api.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserFields
 import com.farcsal.sample.service.api.util.model.PhoneNumber
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UserCreateRequest(
-    @field:JsonProperty(UserFields.LEVEL)
+    @SerialName(UserFields.LEVEL)
     val level: Int,
-    @field:JsonProperty(UserFields.NAME)
+    @SerialName(UserFields.NAME)
     val name: String,
-    @field:JsonProperty(UserFields.PASSWORD)
+    @SerialName(UserFields.PASSWORD)
     val password: String,
-    @field:JsonProperty(UserFields.EMAIL_ADDRESS)
+    @SerialName(UserFields.EMAIL_ADDRESS)
     val emailAddress: String,
-    @field:JsonProperty(UserFields.PHONE_NUMBERS)
+    @SerialName(UserFields.PHONE_NUMBERS)
     val phoneNumbers: Set<PhoneNumber>,
 )

@@ -16,6 +16,7 @@
 package com.farcsal.sample.repository.postgresql.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserDto
+import com.farcsal.sample.repository.api.user.model.asUserId
 import com.farcsal.sample.repository.framework.dsl.require
 import com.farcsal.sample.repository.postgresql.dsl.QUser
 import com.farcsal.sample.repository.postgresql.util.mapper.toInstant
@@ -24,7 +25,7 @@ import com.querydsl.core.Tuple
 @JvmName("toRequiredDto")
 internal fun Tuple.toDto(user: QUser): UserDto {
     return UserDto(
-        id = require(user.id),
+        id = require(user.id).asUserId(),
         creationTime = require(user.creationTime).toInstant(),
         level = require(user.level),
         name = require(user.name),

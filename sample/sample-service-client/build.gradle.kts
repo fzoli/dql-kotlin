@@ -18,10 +18,11 @@ plugins {
     `java-library`
 }
 
-val jackson_version: String by project
 val okhttp3_version: String by project
 val retrofit_version: String by project
+val retrofit_kotlinx_serialization_version: String by project
 val kotlinx_coroutines_version: String by project
+val kotlinx_serialization_version: String by project
 
 dependencies {
     api(project(":sample-service-api"))
@@ -32,8 +33,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version")
     implementation("com.squareup.retrofit2:converter-jackson:$retrofit_version")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofit_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofit_kotlinx_serialization_version")
 }
 
 repositories {

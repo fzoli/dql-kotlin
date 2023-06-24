@@ -19,7 +19,7 @@ import java.time.Instant
 import java.util.*
 
 data class UserDto(
-    val id: UUID,
+    val id: UserId,
     val creationTime: Instant,
     val level: Int,
     val name: String,

@@ -16,21 +16,19 @@
 
 buildscript {
 
-    val kotlin_version: String by project
-
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = kotlin_version))
+        classpath(libs.kotlin.gradle.plugin)
     }
 
 }
 
 plugins {
-    id("org.ajoberstar.grgit").version("5.2.0")
-    id("org.jetbrains.dokka").version("1.8.20")
+    alias(libs.plugins.grgit)
+    alias(libs.plugins.dokka)
 }
 
 val signingKey: String? by project
@@ -55,14 +53,8 @@ subprojects {
 
     buildscript {
 
-        val kotlin_version: String by project
-
         repositories {
             mavenCentral()
-        }
-
-        dependencies {
-            classpath(kotlin("gradle-plugin", version = kotlin_version))
         }
 
     }

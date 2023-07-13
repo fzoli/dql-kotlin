@@ -17,42 +17,32 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.1.1"
-    id("io.spring.dependency-management") version "1.1.0"
-    kotlin("plugin.spring") version "1.8.20"
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
-val hikaricp_version: String by project
-val testcontainers_bom_version: String by project
-
 dependencies {
-    implementation(project(":sample-rest-server"))
-    implementation(project(":sample-repository-pgsql"))
     implementation(project(":dql-query-parser"))
     implementation(project(":sample-dql-query-parser-extension"))
-    implementation("org.springframework:spring-tx")
-    implementation("org.springframework:spring-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.postgresql:postgresql")
-    implementation("com.zaxxer:HikariCP:$hikaricp_version")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.testcontainers:postgresql")
+    implementation(project(":sample-repository-pgsql"))
+    implementation(project(":sample-rest-server"))
+    implementation(libs.flyway.core)
+    implementation(libs.hikaricp)
+    implementation(libs.jdbc.postgresql)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.spring.boot.starter.actuator)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.jdbc)
+    implementation(libs.spring.tx)
     testImplementation(project(":sample-service-client"))
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.testcontainers.postgresql)
 }
 
 repositories {
     mavenCentral()
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("org.testcontainers:testcontainers-bom:$testcontainers_bom_version")
-    }
 }
 
 tasks.getByName<BootJar>("bootJar") {

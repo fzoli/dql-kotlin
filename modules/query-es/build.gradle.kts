@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-val junit_jupiter_version: String by project
-val elasticsearch_version: String by project
-
 plugins {
     `java-library`
 }
 
 dependencies {
     api(project(":query-api"))
-    api("org.elasticsearch:elasticsearch:$elasticsearch_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    api(libs.elasticsearch)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 tasks.withType<Test> {

@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-val antlr4_version: String by project
-val slf4j_version: String by project
-val commons_text_version: String by project
-val junit_jupiter_version: String by project
-
 plugins {
     `java-library`
     antlr
@@ -28,14 +22,14 @@ plugins {
 dependencies {
     api(project(":dql-model"))
     implementation(project(":data-type"))
-    implementation(kotlin("stdlib-jdk8", kotlin_version))
-    implementation("org.slf4j:slf4j-api:$slf4j_version")
-    implementation("org.apache.commons:commons-text:$commons_text_version")
-    implementation("org.antlr:antlr4-runtime:$antlr4_version")
-    antlr("org.antlr:antlr4:$antlr4_version")
-    testImplementation("org.slf4j:slf4j-nop:$slf4j_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    implementation(libs.antlr4.runtime)
+    implementation(libs.commons.text)
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.slf4j.api)
+    antlr(libs.antlr4)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.slf4j.nop)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 sourceSets {

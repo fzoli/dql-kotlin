@@ -18,24 +18,17 @@ plugins {
     `java-library`
 }
 
-val okhttp3_version: String by project
-val retrofit_version: String by project
-val retrofit_kotlinx_serialization_version: String by project
-val kotlinx_coroutines_version: String by project
-val kotlinx_serialization_version: String by project
-
 dependencies {
     api(project(":sample-service-api"))
-    implementation(project(":sample-rest-util"))
     implementation(project(":query-dql"))
     implementation(project(":sample-query-extension-dql"))
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3_version")
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version")
-    implementation("com.squareup.retrofit2:converter-jackson:$retrofit_version")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofit_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofit_kotlinx_serialization_version")
+    implementation(project(":sample-rest-util"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.adapter.rxjava2)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
 }
 
 repositories {

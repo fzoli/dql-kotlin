@@ -18,12 +18,10 @@ plugins {
     `java-library`
 }
 
-val springframework_version: String by project
-
 dependencies {
     api(project(":sample-service-server"))
     api(project(":sample-rest-util"))
     implementation(project(":dql-query-parser"))
-    implementation("org.springframework:spring-context:$springframework_version")
-    implementation("org.springframework:spring-web:$springframework_version")
+    implementation(libs.spring.context)
+    implementation(libs.spring.web)
 }

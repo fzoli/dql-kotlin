@@ -18,13 +18,10 @@ plugins {
     `java-library`
 }
 
-val springframework_version: String by project
-val bcrypt_version: String by project
-
 dependencies {
     api(project(":sample-service-api"))
-    implementation("org.springframework:spring-tx:$springframework_version")
-    implementation("org.springframework:spring-context:$springframework_version")
-    implementation("org.springframework:spring-beans:$springframework_version")
-    implementation("com.ToxicBakery.library.bcrypt:bcrypt:$bcrypt_version")
+    implementation(libs.bcrypt)
+    implementation(libs.spring.beans)
+    implementation(libs.spring.context)
+    implementation(libs.spring.tx)
 }

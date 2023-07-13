@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-val junit_jupiter_version: String by project
-val slf4j_version: String by project
-
 plugins {
     `java-library`
 }
@@ -27,13 +23,13 @@ dependencies {
     api(project(":dql-model"))
     api(project(":dql-resolver"))
     implementation(project(":data-type"))
-    implementation(kotlin("stdlib-jdk8", kotlin_version))
-    implementation(kotlin("reflect", kotlin_version))
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlin.reflect)
     testImplementation(project(":query-querydsl"))
     testImplementation(project(":query-kt"))
-    testImplementation("org.slf4j:slf4j-nop:$slf4j_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    testImplementation(libs.slf4j.nop)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 tasks.withType<Test> {

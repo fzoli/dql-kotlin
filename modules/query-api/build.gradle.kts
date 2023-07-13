@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-
 plugins {
     `java-library`
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", kotlin_version))
+    implementation(libs.kotlin.stdlib.jdk8)
 }

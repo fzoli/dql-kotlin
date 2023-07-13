@@ -19,8 +19,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.yaml:snakeyaml:1.33"
-        classpath "org.flywaydb:flyway-core:9.19.4"
+        classpath libs.snakeyaml
+        classpath libs.flyway.core
     }
 }
 
@@ -29,7 +29,7 @@ configurations {
 }
 
 dependencies {
-    pgsqlFlyway "org.postgresql:postgresql:42.6.0"
+    pgsqlFlyway libs.jdbc.postgresql
 }
 
 task recreatePgSqlDatabase(group: 'developer tools', description: 'Recreates the PostgreSQL database.') {

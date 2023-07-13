@@ -16,12 +16,10 @@
 
 plugins {
     `java-library`
-    kotlin("plugin.serialization") version "1.8.20"
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
-
-val kotlinx_serialization_version: String by project
 
 dependencies {
     api(project(":sample-repository-api"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
+    implementation(libs.kotlinx.serialization.json)
 }

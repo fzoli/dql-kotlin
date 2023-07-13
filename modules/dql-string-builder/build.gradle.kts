@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-val commons_text_version: String by project
-val junit_jupiter_version: String by project
-
 plugins {
     `java-library`
 }
@@ -25,10 +21,10 @@ plugins {
 dependencies {
     implementation(project(":dql-model"))
     implementation(project(":data-type"))
-    implementation(kotlin("stdlib-jdk8", kotlin_version))
-    implementation("org.apache.commons:commons-text:$commons_text_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    implementation(libs.commons.text)
+    implementation(libs.kotlin.stdlib.jdk8)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 tasks.withType<Test> {

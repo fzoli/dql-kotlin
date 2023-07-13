@@ -19,18 +19,20 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.flywaydb:flyway-core:9.19.4"
-        classpath "org.testcontainers:testcontainers:1.18.3"
-        classpath "org.testcontainers:postgresql:1.18.3"
-        classpath "com.querydsl:querydsl-sql-codegen:5.0.0"
-        classpath "com.querydsl:querydsl-codegen:5.0.0"
+        classpath libs.flyway.core
+        classpath libs.testcontainers.postgresql
+        classpath libs.querydsl.sql.codegen
+        classpath libs.querydsl.codegen
         // Annotation API was removed from JDK9 and codegen requires it at runtime
-        classpath "javax.annotation:javax.annotation-api:1.3.2"
+        classpath libs.javax.annotation.api
     }
 }
 
 apply plugin: 'idea'
 
+// Generated files should be placed into the build directory.
+// They are committed to the repository to demonstrate the content of the generated DSL files.
+// That is why Java build task does not depend on the DSL generator task.
 sourceSets.main.java.srcDir file('src/generated/java')
 idea {
     module {
@@ -44,7 +46,7 @@ configurations {
 }
 
 dependencies {
-    pgsqlRuntime "org.postgresql:postgresql:42.5.0"
+    pgsqlRuntime libs.jdbc.postgresql
 }
 
 task generatePgSqlQueryDsl(group: 'developer tools', description: 'Generates QueryDSL classes for PostgreSQL.') {

@@ -1,0 +1,62 @@
+[plugins]
+
+dokka = { id = "org.jetbrains.dokka", version = "1.8.20" }
+grgit = { id = "org.ajoberstar.grgit", version = "5.2.0" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version = "3.1.1" }
+spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.1" }
+
+[versions]
+
+antlr4 = "4.13.0"
+junit-jupiter = "5.9.3"
+kotlin = "1.8.20"
+kotlinx-coroutines = "1.7.2"
+kotlinx-serialization = "1.5.1"
+okhttp3 = "4.11.0"
+querydsl = "5.0.0"
+retrofit2 = "2.9.0"
+slf4j = "2.0.7"
+springframework = "6.0.11"
+
+[libraries]
+
+antlr4 = { module = "org.antlr:antlr4", version.ref = "antlr4" }
+antlr4-runtime = { module = "org.antlr:antlr4-runtime", version.ref = "antlr4" }
+bcrypt = "com.ToxicBakery.library.bcrypt:bcrypt:1.0.9"
+commons-text = "org.apache.commons:commons-text:1.10.0"
+docker-gradle-plugin = "com.palantir.gradle.docker:gradle-docker:0.35.0"
+elasticsearch = "org.elasticsearch:elasticsearch:8.8.2"
+flyway-core = "org.flywaydb:flyway-core:9.19.4"
+hikaricp = "com.zaxxer:HikariCP:5.0.1"
+javax-annotation-api = "javax.annotation:javax.annotation-api:1.3.2"
+jdbc-postgresql = "org.postgresql:postgresql:42.6.0"
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
+querydsl-codegen = { module = "com.querydsl:querydsl-codegen", version.ref = "querydsl" }
+querydsl-core = { module = "com.querydsl:querydsl-core", version.ref = "querydsl" }
+querydsl-sql = { module = "com.querydsl:querydsl-sql", version.ref = "querydsl" }
+querydsl-sql-codegen = { module = "com.querydsl:querydsl-sql-codegen", version.ref = "querydsl" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
+retrofit2-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit2" }
+retrofit2-kotlinx-serialization-converter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
+snakeyaml = "org.yaml:snakeyaml:1.33"
+spring-beans = { module = "org.springframework:spring-beans", version.ref = "springframework" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-context = { module = "org.springframework:spring-context", version.ref = "springframework" }
+spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "springframework" }
+spring-tx = { module = "org.springframework:spring-tx", version.ref = "springframework" }
+spring-web = { module = "org.springframework:spring-web", version.ref = "springframework" }
+testcontainers-postgresql = "org.testcontainers:postgresql:1.18.3"

@@ -18,9 +18,6 @@ plugins {
     `java-library`
 }
 
-val springframework_version: String by project
-val querydsl_version: String by project
-
 apply(from = "build.dslgen.gradle")
 apply(from = "build.flyway.gradle")
 
@@ -28,9 +25,9 @@ dependencies {
     api(project(":sample-repository-api"))
     implementation(project(":query-querydsl"))
     implementation(project(":sample-query-extension-querydsl"))
-    implementation("com.querydsl:querydsl-sql:$querydsl_version")
-    implementation("org.springframework:spring-tx:$springframework_version")
-    implementation("org.springframework:spring-jdbc:$springframework_version")
-    implementation("org.springframework:spring-context:$springframework_version")
-    implementation("org.springframework:spring-beans:$springframework_version")
+    implementation(libs.querydsl.sql)
+    implementation(libs.spring.beans)
+    implementation(libs.spring.context)
+    implementation(libs.spring.jdbc)
+    implementation(libs.spring.tx)
 }

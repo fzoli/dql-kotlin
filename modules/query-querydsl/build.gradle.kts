@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-val kotlin_version: String by project
-val querydsl_version: String by project
-val junit_jupiter_version: String by project
-
 plugins {
     `java-library`
 }
 
 dependencies {
     api(project(":query-api"))
-    api("com.querydsl:querydsl-core:$querydsl_version")
-    implementation(kotlin("stdlib-jdk8", kotlin_version))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    api(libs.querydsl.core)
+    implementation(libs.kotlin.stdlib.jdk8)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 tasks.withType<Test> {

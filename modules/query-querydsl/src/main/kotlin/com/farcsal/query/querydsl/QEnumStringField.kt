@@ -23,11 +23,12 @@ import kotlin.reflect.KClass
 class QEnumStringField<T : Enum<T>>(
     override val typeClass: KClass<T>,
     private val delegate: StringExpression,
+    private val mapper: (T) -> String = { it.name },
 ) : EnumField<T>, QExpressionProvider<String> {
 
     companion object {
-        inline fun <reified T: Enum<T>> of(field: StringExpression): QEnumStringField<T> {
-            return QEnumStringField(T::class, field)
+        inline fun <reified T: Enum<T>> of(field: StringExpression, noinline mapper: (T) -> String = { it.name }): QEnumStringField<T> {
+            return QEnumStringField(T::class, field, mapper)
         }
     }
 
@@ -36,11 +37,11 @@ class QEnumStringField<T : Enum<T>>(
     }
 
     override fun eq(right: T): BooleanField {
-        return QBooleanField(delegate.eq(right.name))
+        return QBooleanField(delegate.eq(mapper(right)))
     }
 
     override fun memberOf(right: Collection<T>): BooleanField {
-        return QBooleanField(delegate.`in`(right.map { it.name }))
+        return QBooleanField(delegate.`in`(right.map { mapper(it) }))
     }
 
     override fun isNull(): BooleanField {

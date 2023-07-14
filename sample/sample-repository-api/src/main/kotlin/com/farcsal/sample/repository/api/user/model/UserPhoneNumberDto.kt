@@ -16,7 +16,6 @@
 package com.farcsal.sample.repository.api.user.model
 
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberType
-import java.util.*
 
 data class UserPhoneNumberDto(
     val userId: UserId,

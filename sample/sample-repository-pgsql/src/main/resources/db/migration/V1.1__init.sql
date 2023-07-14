@@ -54,8 +54,8 @@ create table key_phone_number_type
             primary key
 );
 
-insert into key_phone_number_type(key) values ('HOME');
-insert into key_phone_number_type(key) values ('WORK');
+insert into key_phone_number_type(key) values ('home');
+insert into key_phone_number_type(key) values ('work');
 
 -- endregion
 

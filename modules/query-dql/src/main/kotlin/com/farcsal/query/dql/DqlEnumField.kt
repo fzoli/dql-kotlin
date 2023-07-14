@@ -20,11 +20,15 @@ import com.farcsal.dql.string.builder.filter.factory.DqlStringBuilderVisitor
 import com.farcsal.query.api.EnumField
 import kotlin.reflect.KClass
 
-class DqlEnumField<T: Enum<T>> (override val typeClass: KClass<T>, private val field: String) : EnumField<T> {
+class DqlEnumField<T: Enum<T>> (
+    override val typeClass: KClass<T>,
+    private val field: String,
+    private val mapper: (T) -> String = { it.name },
+) : EnumField<T> {
 
     companion object {
-        inline fun <reified T: Enum<T>> of(field: String): DqlEnumField<T> {
-            return DqlEnumField(T::class, field)
+        inline fun <reified T: Enum<T>> of(field: String, noinline mapper: (T) -> String = { it.name }): DqlEnumField<T> {
+            return DqlEnumField(T::class, field, mapper)
         }
     }
 
@@ -37,7 +41,7 @@ class DqlEnumField<T: Enum<T>> (override val typeClass: KClass<T>, private val f
     }
 
     override fun eq(right: T): DqlCriteria {
-        return DqlCriteria(DqlStringBuilderVisitor.ofString(field, DqlMethods.EQ, right.name))
+        return DqlCriteria(DqlStringBuilderVisitor.ofString(field, DqlMethods.EQ, mapper(right)))
     }
 
     @JvmName("memberOfVariables")
@@ -46,7 +50,7 @@ class DqlEnumField<T: Enum<T>> (override val typeClass: KClass<T>, private val f
     }
 
     override fun memberOf(right: Collection<T>): DqlCriteria {
-        return DqlCriteria(DqlStringBuilderVisitor.ofStringList(field, DqlMethods.MEMBER_OF, right.map { it.name }))
+        return DqlCriteria(DqlStringBuilderVisitor.ofStringList(field, DqlMethods.MEMBER_OF, right.map { mapper(it) }))
     }
 
     override fun isNull(): DqlCriteria {

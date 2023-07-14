@@ -21,15 +21,16 @@ import kotlin.reflect.KClass
 
 class EEnumField<T : Enum<T>>(
     override val typeClass: KClass<T>,
-    private val fieldName: String
+    private val fieldName: String,
+    private val mapper: (T) -> String = { it.name },
 ) : EnumField<T> {
 
     override fun eq(right: T): Criteria {
-        return ECriteria(equalsString(fieldName, right.name))
+        return ECriteria(equalsString(fieldName, mapper(right)))
     }
 
     override fun memberOf(right: Collection<T>): Criteria {
-        return ECriteria(or(right.map { value -> equalsString(fieldName, value.name) }.toSet()))
+        return ECriteria(or(right.map { value -> equalsString(fieldName, mapper(value)) }.toSet()))
     }
 
     override fun isNull(): Criteria {

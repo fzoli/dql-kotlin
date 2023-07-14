@@ -15,6 +15,7 @@
  */
 package com.farcsal.sample.repository.postgresql.user.model
 
+import com.farcsal.datatype.toEnum
 import com.farcsal.sample.repository.api.user.model.UserPhoneNumberDto
 import com.farcsal.sample.repository.api.user.model.asUserId
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberType
@@ -27,7 +28,7 @@ internal fun Tuple.toDto(phoneNumber: QUserPhoneNumber): UserPhoneNumberDto {
     return UserPhoneNumberDto(
         userId = require(phoneNumber.userId).asUserId(),
         value = require(phoneNumber.value),
-        type = PhoneNumberType.valueOf(require(phoneNumber.type)),
+        type = require(phoneNumber.type).toEnum<PhoneNumberType> { it.value },
     )
 }
 

@@ -23,6 +23,7 @@ apply(from = "build.flyway.gradle")
 
 dependencies {
     api(project(":sample-repository-api"))
+    implementation(project(":data-type"))
     implementation(project(":query-querydsl"))
     implementation(project(":sample-query-extension-querydsl"))
     implementation(libs.querydsl.sql)

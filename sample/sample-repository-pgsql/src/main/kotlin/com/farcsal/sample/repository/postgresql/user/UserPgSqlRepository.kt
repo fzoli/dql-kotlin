@@ -113,7 +113,7 @@ open class UserPgSqlRepository @Autowired constructor(
         dslProvider.createSqlInsertClause(userPhoneNumber)
             .set(userPhoneNumber.userId, dto.userId.uuid)
             .set(userPhoneNumber.value, dto.value)
-            .set(userPhoneNumber.type, dto.type.name)
+            .set(userPhoneNumber.type, dto.type.value)
             .execute()
     }
 

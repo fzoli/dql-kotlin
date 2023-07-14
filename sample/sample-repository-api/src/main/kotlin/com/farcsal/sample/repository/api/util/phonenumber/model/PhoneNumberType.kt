@@ -15,7 +15,7 @@
  */
 package com.farcsal.sample.repository.api.util.phonenumber.model
 
-enum class PhoneNumberType {
-    HOME,
-    WORK,
+enum class PhoneNumberType(val value: String) {
+    HOME("home"),
+    WORK("work"),
 }

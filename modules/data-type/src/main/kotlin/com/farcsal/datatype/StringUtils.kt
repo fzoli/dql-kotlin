@@ -26,13 +26,13 @@ fun <T> String.split(separator: String, parser: (String) -> T): List<T> {
     }
 }
 
-fun <T : Enum<T>> String.toEnum(type: KClass<T>): T {
+fun <T : Enum<T>> String.toEnum(type: KClass<T>, mapper: (T) -> String = { it.name }): T {
     val result = type.java.enumConstants.first { constant ->
-        this == constant.name
+        this == mapper(constant)
     }
     return requireNotNull(result) { "Invalid name '${this}' for enum '$type'" }
 }
 
-inline fun <reified T : Enum<T>> String.toEnum(): T {
-    return toEnum(T::class)
+inline fun <reified T : Enum<T>> String.toEnum(noinline mapper: (T) -> String = { it.name }): T {
+    return toEnum(T::class, mapper)
 }

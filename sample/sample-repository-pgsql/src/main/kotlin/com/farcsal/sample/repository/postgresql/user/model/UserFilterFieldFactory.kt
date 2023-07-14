@@ -31,7 +31,7 @@ internal fun createFilterField(user: QUser, userPhoneNumber: QUserPhoneNumber): 
         emailAddress = user.emailAddress.toStringField(),
         phoneNumbers = PhoneNumberFilterField(
             value = userPhoneNumber.value.toStringField(),
-            type = userPhoneNumber.type.toEnumField { it.value },
+            type = userPhoneNumber.type.toEnumField(mapper = { it.value }, parserMapper = { it.name }),
         ).toSetField()
     )
 }

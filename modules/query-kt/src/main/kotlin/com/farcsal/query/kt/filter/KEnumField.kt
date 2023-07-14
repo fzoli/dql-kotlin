@@ -21,7 +21,8 @@ import kotlin.reflect.KClass
 
 class KEnumField<T : Enum<T>>(
     val value: T?,
-    override val typeClass: KClass<T>
+    override val typeClass: KClass<T>,
+    override val parserMapper: (T) -> String = { it.name },
 ) : EnumField<T> {
 
     override fun eq(right: T): Criteria {

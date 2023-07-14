@@ -48,7 +48,7 @@ class DqlMethodInvokerEnumStrategy<T: Enum<T>>(private val expr: EnumField<T>) :
         string: String
     ): Criteria {
         return when (method) {
-            DqlMethods.EQ -> expr.eq(string.toEnum(expr.typeClass))
+            DqlMethods.EQ -> expr.eq(string.toEnum(expr.typeClass, expr.parserMapper))
             else -> throw unknownMethodException(field, method, expr)
         }
     }
@@ -68,7 +68,7 @@ class DqlMethodInvokerEnumStrategy<T: Enum<T>>(private val expr: EnumField<T>) :
     ): Criteria {
         rejectDuplicates(field, stringList)
         return when (method) {
-            DqlMethods.MEMBER_OF -> expr.memberOf(stringList.map { it.toEnum(expr.typeClass) })
+            DqlMethods.MEMBER_OF -> expr.memberOf(stringList.map { it.toEnum(expr.typeClass, expr.parserMapper) })
             else -> throw unknownMethodException(field, method, expr)
         }
     }

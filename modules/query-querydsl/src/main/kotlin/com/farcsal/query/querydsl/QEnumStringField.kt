@@ -24,11 +24,16 @@ class QEnumStringField<T : Enum<T>>(
     override val typeClass: KClass<T>,
     private val delegate: StringExpression,
     private val mapper: (T) -> String = { it.name },
+    override val parserMapper: (T) -> String = mapper,
 ) : EnumField<T>, QExpressionProvider<String> {
 
     companion object {
-        inline fun <reified T: Enum<T>> of(field: StringExpression, noinline mapper: (T) -> String = { it.name }): QEnumStringField<T> {
-            return QEnumStringField(T::class, field, mapper)
+        inline fun <reified T: Enum<T>> of(
+            field: StringExpression,
+            noinline mapper: (T) -> String = { it.name },
+            noinline parserMapper: (T) -> String = mapper,
+        ): QEnumStringField<T> {
+            return QEnumStringField(T::class, field, mapper, parserMapper)
         }
     }
 

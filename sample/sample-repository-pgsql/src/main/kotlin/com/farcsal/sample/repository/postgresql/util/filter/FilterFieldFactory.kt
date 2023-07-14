@@ -51,6 +51,9 @@ fun StringExpression.toUnaccentStringField(): UnaccentStringField {
     return QUnaccentStringField(QStringField(this.toUnaccent()))
 }
 
-inline fun <reified T: Enum<T>> StringExpression.toEnumField(noinline mapper: (T) -> String = { it.name }): EnumField<T> {
-    return QEnumStringField.of(this, mapper)
+inline fun <reified T: Enum<T>> StringExpression.toEnumField(
+    noinline mapper: (T) -> String = { it.name },
+    noinline parserMapper: (T) -> String = mapper,
+): EnumField<T> {
+    return QEnumStringField.of(this, mapper, parserMapper)
 }

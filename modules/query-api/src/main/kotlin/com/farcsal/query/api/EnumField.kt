@@ -19,4 +19,5 @@ import kotlin.reflect.KClass
 
 interface EnumField<T : Enum<T>> : LiteralField<T> {
     val typeClass: KClass<T>
+    val parserMapper: (T) -> String
 }

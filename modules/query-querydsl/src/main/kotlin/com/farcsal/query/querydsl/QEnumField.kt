@@ -18,17 +18,20 @@ package com.farcsal.query.querydsl
 import com.farcsal.query.api.BooleanField
 import com.farcsal.query.api.EnumField
 import com.querydsl.core.types.dsl.EnumExpression
-import com.querydsl.core.types.dsl.SimpleExpression
 import kotlin.reflect.KClass
 
 class QEnumField<T : Enum<T>>(
     override val typeClass: KClass<T>,
     private val delegate: EnumExpression<T>,
+    override val parserMapper: (T) -> String = { it.name },
 ) : EnumField<T>, QExpressionProvider<T> {
 
     companion object {
-        inline fun <reified T: Enum<T>> of(field: EnumExpression<T>): QEnumField<T> {
-            return QEnumField(T::class, field)
+        inline fun <reified T: Enum<T>> of(
+            field: EnumExpression<T>,
+            noinline parserMapper: (T) -> String = { it.name },
+        ): QEnumField<T> {
+            return QEnumField(T::class, field, parserMapper)
         }
     }
 

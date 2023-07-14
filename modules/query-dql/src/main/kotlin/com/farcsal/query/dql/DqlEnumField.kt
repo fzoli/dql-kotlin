@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
 class DqlEnumField<T: Enum<T>> (
     override val typeClass: KClass<T>,
     private val field: String,
-    private val mapper: (T) -> String = { it.name },
+    override val parserMapper: (T) -> String = { it.name },
 ) : EnumField<T> {
 
     companion object {
@@ -41,7 +41,7 @@ class DqlEnumField<T: Enum<T>> (
     }
 
     override fun eq(right: T): DqlCriteria {
-        return DqlCriteria(DqlStringBuilderVisitor.ofString(field, DqlMethods.EQ, mapper(right)))
+        return DqlCriteria(DqlStringBuilderVisitor.ofString(field, DqlMethods.EQ, parserMapper(right)))
     }
 
     @JvmName("memberOfVariables")
@@ -50,7 +50,7 @@ class DqlEnumField<T: Enum<T>> (
     }
 
     override fun memberOf(right: Collection<T>): DqlCriteria {
-        return DqlCriteria(DqlStringBuilderVisitor.ofStringList(field, DqlMethods.MEMBER_OF, right.map { mapper(it) }))
+        return DqlCriteria(DqlStringBuilderVisitor.ofStringList(field, DqlMethods.MEMBER_OF, right.map { parserMapper(it) }))
     }
 
     override fun isNull(): DqlCriteria {

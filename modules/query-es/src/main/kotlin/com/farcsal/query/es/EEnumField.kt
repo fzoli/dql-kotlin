@@ -23,6 +23,7 @@ class EEnumField<T : Enum<T>>(
     override val typeClass: KClass<T>,
     private val fieldName: String,
     private val mapper: (T) -> String = { it.name },
+    override val parserMapper: (T) -> String = mapper,
 ) : EnumField<T> {
 
     override fun eq(right: T): Criteria {

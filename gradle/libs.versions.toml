@@ -9,7 +9,7 @@ spring-dependency-management = { id = "io.spring.dependency-management", version
 
 [versions]
 
-antlr4 = "4.13.0"
+antlr4 = "4.13.1"
 junit-jupiter = "5.10.0"
 kotlin = "1.8.20"
 kotlinx-coroutines = "1.7.3"
@@ -17,8 +17,8 @@ kotlinx-serialization = "1.6.0"
 okhttp3 = "4.11.0"
 querydsl = "5.0.0"
 retrofit2 = "2.9.0"
-slf4j = "2.0.7"
-springframework = "6.0.11"
+slf4j = "2.0.9"
+springframework = "6.0.12"
 
 [libraries]
 
@@ -27,8 +27,8 @@ antlr4-runtime = { module = "org.antlr:antlr4-runtime", version.ref = "antlr4" }
 bcrypt = "com.ToxicBakery.library.bcrypt:bcrypt:1.0.9"
 commons-text = "org.apache.commons:commons-text:1.10.0"
 docker-gradle-plugin = "com.palantir.gradle.docker:gradle-docker:0.35.0"
-elasticsearch = "org.elasticsearch:elasticsearch:8.9.1"
-flyway-core = "org.flywaydb:flyway-core:9.22.0"
+elasticsearch = "org.elasticsearch:elasticsearch:8.10.1"
+flyway-core = "org.flywaydb:flyway-core:9.22.1"
 hikaricp = "com.zaxxer:HikariCP:5.0.1"
 javax-annotation-api = "javax.annotation:javax.annotation-api:1.3.2"
 jdbc-postgresql = "org.postgresql:postgresql:42.6.0"

@@ -26,3 +26,39 @@ fun <T> FilterFunction<T>?.evaluate(expression: T): Criteria? {
         this(expression)
     }
 }
+
+@JvmName("andOpt")
+fun <T> FilterFunction<T>?.and(other: FilterFunction<T>?): FilterFunction<T>? {
+    if (this == null) return other
+    if (other == null) return this
+    return listOf(this, other).merge { l, r -> l.and(r) }
+}
+
+@JvmName("and")
+fun <T> FilterFunction<T>?.and(other: FilterFunction<T>): FilterFunction<T> {
+    if (this == null) return other
+    return listOf(this, other).merge { l, r -> l.and(r) }
+}
+
+fun <T> List<FilterFunction<T>>.merge(merger: (left: Criteria, right: Criteria) -> Criteria): FilterFunction<T> {
+    val list = this
+    if (list.isEmpty()) {
+        return { null }
+    }
+    return {
+        var c: Criteria? = null
+        val iterator = list.iterator()
+        while (iterator.hasNext()) {
+            val fn = iterator.next()
+            if (c == null) {
+                c = fn.invoke(this)
+            } else {
+                val other = fn.invoke(this)
+                if (other != null) {
+                    c = merger(c, other)
+                }
+            }
+        }
+        c
+    }
+}

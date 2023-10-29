@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.repository.api.user.model
+package com.farcsal.dql.query.parser.filter.invoker.strategy
 
-object UserFields {
-    const val ID = "id"
-    const val CREATION_TIME = "creation_time"
-    const val LEVEL = "level"
-    const val NAME = "name"
-    const val PASSWORD = "password"
-    const val EMAIL_ADDRESS = "email_address"
-    const val PHONE_NUMBERS = "phone_numbers"
-    const val BIRTH_DAY = "birth_day"
+import com.farcsal.query.api.Field
+import com.farcsal.query.api.LocalDateField
+
+class DqlMethodInvokerLocalDateStrategyFactory : DqlMethodInvokerGenericStrategyFactory<LocalDateField>() {
+
+    override fun cast(expr: Field): LocalDateField? {
+        return expr as? LocalDateField
+    }
+
+    override fun createStrategy(expr: LocalDateField): DqlMethodInvokerStrategy {
+        return DqlMethodInvokerLocalDateStrategy(expr)
+    }
+
 }

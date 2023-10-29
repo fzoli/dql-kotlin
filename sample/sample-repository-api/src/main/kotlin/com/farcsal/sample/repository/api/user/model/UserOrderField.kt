@@ -26,6 +26,8 @@ class UserOrderField(
     val level: OrderField,
     @field:SerializedField(UserFields.NAME)
     val name: StringOrderField,
+    @field:SerializedField(UserFields.BIRTH_DAY)
+    val birthDay: OrderField,
     @field:SerializedField(UserFields.EMAIL_ADDRESS)
     val emailAddress: StringOrderField,
 )

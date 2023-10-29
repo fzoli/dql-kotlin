@@ -17,8 +17,10 @@ package com.farcsal.sample.service.api.user.model
 
 import com.farcsal.sample.repository.api.user.model.UserFields
 import com.farcsal.sample.service.api.util.model.PhoneNumber
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.time.LocalDate
 
 @Serializable
 data class UserCreateRequest(
@@ -28,6 +30,9 @@ data class UserCreateRequest(
     val name: String,
     @SerialName(UserFields.PASSWORD)
     val password: String,
+    @Contextual
+    @SerialName(UserFields.BIRTH_DAY)
+    val birthDay: LocalDate,
     @SerialName(UserFields.EMAIL_ADDRESS)
     val emailAddress: String,
     @SerialName(UserFields.PHONE_NUMBERS)

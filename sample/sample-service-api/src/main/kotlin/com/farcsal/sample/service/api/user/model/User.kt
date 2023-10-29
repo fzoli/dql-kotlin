@@ -20,9 +20,11 @@ import com.farcsal.sample.repository.api.user.model.UserId
 import com.farcsal.sample.service.api.util.model.PhoneNumber
 import com.farcsal.sample.service.api.util.serializer.InstantSerializer
 import com.farcsal.sample.service.api.util.serializer.ids.UserIdSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.Instant
+import java.time.LocalDate
 
 @Serializable
 data class User(
@@ -36,6 +38,9 @@ data class User(
     val level: Int,
     @SerialName(UserFields.NAME)
     val name: String,
+    @Contextual
+    @SerialName(UserFields.BIRTH_DAY)
+    val birthDay: LocalDate,
     @SerialName(UserFields.EMAIL_ADDRESS)
     val emailAddress: String,
     @SerialName(UserFields.PHONE_NUMBERS)

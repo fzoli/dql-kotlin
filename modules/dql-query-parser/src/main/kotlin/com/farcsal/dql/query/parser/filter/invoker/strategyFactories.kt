@@ -26,6 +26,7 @@ val strategyFactories: List<DqlMethodInvokerStrategyFactory> = listOf(
     DqlMethodInvokerDoubleStrategyFactory(),
     DqlMethodInvokerBigDecimalStrategyFactory(),
     DqlMethodInvokerInstantStrategyFactory(),
+    DqlMethodInvokerLocalDateStrategyFactory(),
 )
 
 fun List<DqlMethodInvokerStrategyFactory>.withAnyStrategy(): List<DqlMethodInvokerStrategyFactory> {

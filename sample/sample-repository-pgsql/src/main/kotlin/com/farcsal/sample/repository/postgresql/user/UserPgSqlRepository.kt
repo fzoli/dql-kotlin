@@ -51,6 +51,7 @@ open class UserPgSqlRepository @Autowired constructor(
                 user.id,
                 user.level,
                 user.name,
+                user.birthDay,
                 user.creationTime,
                 user.emailAddress,
             )
@@ -90,6 +91,7 @@ open class UserPgSqlRepository @Autowired constructor(
                 user.id,
                 user.level,
                 user.name,
+                user.birthDay,
                 user.creationTime,
                 user.emailAddress,
             )
@@ -103,6 +105,7 @@ open class UserPgSqlRepository @Autowired constructor(
         return dslProvider.createSqlInsertClause(user)
             .set(user.level, dto.level)
             .set(user.name, dto.name)
+            .set(user.birthDay, dto.birthDay)
             .set(user.passwordHash, dto.passwordHash)
             .set(user.emailAddress, dto.emailAddress)
             .set(user.creationTime, dto.creationTime.toLocalDateTime())

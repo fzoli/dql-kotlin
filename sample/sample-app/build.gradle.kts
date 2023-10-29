@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.jdbc.postgresql)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.jdbc)

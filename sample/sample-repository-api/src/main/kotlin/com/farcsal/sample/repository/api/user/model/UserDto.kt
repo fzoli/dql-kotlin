@@ -16,6 +16,7 @@
 package com.farcsal.sample.repository.api.user.model
 
 import java.time.Instant
+import java.time.LocalDate
 import java.util.*
 
 data class UserDto(
@@ -23,5 +24,6 @@ data class UserDto(
     val creationTime: Instant,
     val level: Int,
     val name: String,
+    val birthDay: LocalDate,
     val emailAddress: String,
 )

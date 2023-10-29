@@ -29,6 +29,8 @@ class UserFilterField(
     val level: IntField,
     @field:SerializedField(UserFields.NAME)
     val name: UnaccentStringField,
+    @field:SerializedField(UserFields.BIRTH_DAY)
+    val birthDay: LocalDateField,
     @field:SerializedField(UserFields.EMAIL_ADDRESS)
     val emailAddress: StringField,
     @field:SerializedField(UserFields.PHONE_NUMBERS)

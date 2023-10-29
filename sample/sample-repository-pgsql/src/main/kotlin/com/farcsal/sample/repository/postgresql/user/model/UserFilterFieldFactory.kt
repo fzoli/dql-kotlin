@@ -28,6 +28,7 @@ internal fun createFilterField(user: QUser, userPhoneNumber: QUserPhoneNumber): 
         creationTime = user.creationTime.toInstantField(),
         level = user.level.toIntField(),
         name = user.name.toUnaccentStringField(),
+        birthDay = user.birthDay.toLocalDateField(),
         emailAddress = user.emailAddress.toStringField(),
         phoneNumbers = PhoneNumberFilterField(
             value = userPhoneNumber.value.toStringField(),

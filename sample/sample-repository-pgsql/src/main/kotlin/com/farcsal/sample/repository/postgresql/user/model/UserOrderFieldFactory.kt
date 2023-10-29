@@ -25,6 +25,7 @@ internal fun createOrderField(user: QUser): UserOrderField {
         creationTime = user.creationTime.toOrderField(),
         level = user.level.toOrderField(),
         name = user.name.toStringOrderField(),
+        birthDay = user.birthDay.toOrderField(),
         emailAddress = user.emailAddress.toStringOrderField(),
     )
 }

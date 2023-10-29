@@ -16,11 +16,11 @@
 package com.farcsal.sample.service.client
 
 import com.farcsal.sample.service.api.user.UserService
+import com.farcsal.sample.service.api.user.serializer.json
 import com.farcsal.sample.service.client.user.UserApi
 import com.farcsal.sample.service.client.user.UserServiceClient
 import com.farcsal.sample.service.client.util.LocaleInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,7 +48,7 @@ class ClientServices(
         .client(okHttpClient)
         .baseUrl(baseUrl)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()
 
     val userService: UserService = UserServiceClient(retrofit.create(UserApi::class.java))

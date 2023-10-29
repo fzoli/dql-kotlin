@@ -69,6 +69,7 @@ create table "user"
     creation_time timestamp(3) not null,
     level int not null,
     name text not null,
+    birth_day date not null,
     email_address email_address not null,
     password_hash text
 );

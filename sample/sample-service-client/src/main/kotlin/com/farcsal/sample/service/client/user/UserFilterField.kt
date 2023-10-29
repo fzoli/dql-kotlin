@@ -28,6 +28,7 @@ internal fun userFilterField(prefix: String = "") = UserFilterField(
     creationTime = DqlInstantField(prefix + UserFields.CREATION_TIME),
     level = DqlIntField(prefix + UserFields.LEVEL),
     name = DqlUnaccentStringField(DqlStringField(prefix + UserFields.NAME)),
+    birthDay = DqlLocalDateField(prefix + UserFields.BIRTH_DAY),
     emailAddress = DqlStringField(prefix + UserFields.EMAIL_ADDRESS),
     phoneNumbers = DqlSetField(phoneNumberFilterField(prefix + UserFields.PHONE_NUMBERS + "." + SetFieldMethods.ONE_OF + ".")),
 )

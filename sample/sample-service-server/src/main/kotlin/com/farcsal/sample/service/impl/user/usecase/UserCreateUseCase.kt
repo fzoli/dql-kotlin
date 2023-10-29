@@ -41,6 +41,7 @@ open class UserCreateUseCase @Autowired constructor(
             level = request.level,
             name = request.name,
             passwordHash = request.password.generatePasswordHash().toString(),
+            birthDay = request.birthDay,
             emailAddress = request.emailAddress,
             creationTime = Instant.now(clock),
         ))

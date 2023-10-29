@@ -18,10 +18,10 @@ package com.farcsal.dql.query.parser.filter.invoker.strategy
 import com.farcsal.dql.model.DqlMethods
 import com.farcsal.dql.model.DqlNumber
 import com.farcsal.query.api.Criteria
-import com.farcsal.query.api.InstantField
-import java.time.Instant
+import com.farcsal.query.api.LocalDateField
+import java.time.LocalDate
 
-class DqlMethodInvokerInstantStrategy(private val expr: InstantField) : DqlMethodInvokerStrategy {
+class DqlMethodInvokerLocalDateStrategy(private val expr: LocalDateField) : DqlMethodInvokerStrategy {
 
     override fun resolveUnaryExpression(field: String, method: String): Criteria {
         return when (method) {
@@ -36,7 +36,7 @@ class DqlMethodInvokerInstantStrategy(private val expr: InstantField) : DqlMetho
     }
 
     override fun resolveStringExpression(field: String, method: String, string: String): Criteria {
-        val value = Instant.parse(string)
+        val value = LocalDate.parse(string)
         return when (method) {
             DqlMethods.EQ -> expr.eq(value)
             DqlMethods.BEFORE -> expr.before(value)
@@ -50,7 +50,7 @@ class DqlMethodInvokerInstantStrategy(private val expr: InstantField) : DqlMetho
     }
 
     override fun resolveStringListExpression(field: String, method: String, stringList: List<String>): Criteria {
-        val value = stringList.map { Instant.parse(it) }
+        val value = stringList.map { LocalDate.parse(it) }
         rejectDuplicates(field, value)
         return when (method) {
             DqlMethods.MEMBER_OF -> expr.memberOf(value)

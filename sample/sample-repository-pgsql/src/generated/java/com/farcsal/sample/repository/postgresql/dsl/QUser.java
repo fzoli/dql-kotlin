@@ -24,6 +24,8 @@ public class QUser extends com.querydsl.sql.RelationalPathBase<QUser> {
 
     public static final QUser user = new QUser("user");
 
+    public final DatePath<java.time.LocalDate> birthDay = createDate("birthDay", java.time.LocalDate.class);
+
     public final DateTimePath<java.time.LocalDateTime> creationTime = createDateTime("creationTime", java.time.LocalDateTime.class);
 
     public final StringPath emailAddress = createString("emailAddress");
@@ -62,12 +64,13 @@ public class QUser extends com.querydsl.sql.RelationalPathBase<QUser> {
     }
 
     public void addMetadata() {
+        addMetadata(birthDay, ColumnMetadata.named("birth_day").withIndex(5).ofType(Types.DATE).withSize(13).notNull());
         addMetadata(creationTime, ColumnMetadata.named("creation_time").withIndex(2).ofType(Types.TIMESTAMP).withSize(26).withDigits(3).notNull());
-        addMetadata(emailAddress, ColumnMetadata.named("email_address").withIndex(5).ofType(Types.DISTINCT).withSize(2147483647).notNull());
+        addMetadata(emailAddress, ColumnMetadata.named("email_address").withIndex(6).ofType(Types.DISTINCT).withSize(2147483647).notNull());
         addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.OTHER).withSize(2147483647).notNull());
         addMetadata(level, ColumnMetadata.named("level").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(name, ColumnMetadata.named("name").withIndex(4).ofType(Types.VARCHAR).withSize(2147483647).notNull());
-        addMetadata(passwordHash, ColumnMetadata.named("password_hash").withIndex(6).ofType(Types.VARCHAR).withSize(2147483647));
+        addMetadata(passwordHash, ColumnMetadata.named("password_hash").withIndex(7).ofType(Types.VARCHAR).withSize(2147483647));
     }
 
 }

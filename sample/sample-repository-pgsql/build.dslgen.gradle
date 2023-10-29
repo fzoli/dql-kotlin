@@ -94,6 +94,7 @@ void generate(String jdbcUrl) {
     com.querydsl.sql.SQLTemplates templates = new com.querydsl.sql.PostgreSQLTemplates()
     com.querydsl.sql.Configuration configuration = new com.querydsl.sql.Configuration(templates)
     configuration.registerType("uuid", java.util.UUID.class)
+    configuration.registerType("date", java.time.LocalDate.class)
     configuration.registerType("timestamp", java.time.LocalDateTime.class)
     configuration.registerType("timestamp without time zone", java.time.LocalDateTime.class)
     configuration.registerType("email_address", String.class)

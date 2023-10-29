@@ -29,6 +29,7 @@ internal fun Tuple.toDto(user: QUser): UserDto {
         creationTime = require(user.creationTime).toInstant(),
         level = require(user.level),
         name = require(user.name),
+        birthDay = require(user.birthDay),
         emailAddress = require(user.emailAddress),
     )
 }

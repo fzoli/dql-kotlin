@@ -29,6 +29,7 @@ fun toPublic(
         creationTime = user.creationTime,
         level = user.level,
         name = user.name,
+        birthDay = user.birthDay,
         emailAddress = user.emailAddress,
         phoneNumbers = phoneNumbers
             .filter { phoneNumber ->

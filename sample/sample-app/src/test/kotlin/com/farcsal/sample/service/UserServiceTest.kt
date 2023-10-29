@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.Instant
+import java.time.LocalDate
 
 @IntegrationTest
 class UserServiceTest {
@@ -41,6 +42,7 @@ class UserServiceTest {
             level = 1,
             name = "One",
             password = "password",
+            birthDay = LocalDate.of(2000, 12, 24),
             emailAddress = "one@example",
             phoneNumbers = setOf(),
         ))
@@ -48,12 +50,15 @@ class UserServiceTest {
             level = 2,
             name = "Two",
             password = "password",
+            birthDay = LocalDate.of(2000, 12, 24),
             emailAddress = "two@example",
             phoneNumbers = setOf(PhoneNumber("1234", PhoneNumberType.WORK)),
         ))
         val resultLocal = userService.list(
             filter = {
-                id.eq(user.id) and level.goe(1) or
+                id.eq(user.id) and
+                level.goe(1) and
+                birthDay.eq(LocalDate.of(2000, 12, 24)) or
                 name.containsIgnoreAccentCase("a") or
                 phoneNumbers.oneOf.type.eq(PhoneNumberType.HOME) or
                 !creationTime.after(Instant.EPOCH)
@@ -65,7 +70,9 @@ class UserServiceTest {
         )
         val resultRemote = client.userService.list(
             filter = {
-                id.eq(user.id) and level.goe(1) or
+                id.eq(user.id) and
+                level.goe(1) and
+                birthDay.eq(LocalDate.of(2000, 12, 24)) or
                 name.containsIgnoreAccentCase("a") or
                 phoneNumbers.oneOf.type.eq(PhoneNumberType.HOME) or
                 !creationTime.after(Instant.EPOCH)

@@ -23,5 +23,6 @@ internal fun userOrderField(prefix: String = "") = UserOrderField(
     creationTime = DqlOrderField(prefix + UserFields.CREATION_TIME),
     level = DqlOrderField(prefix + UserFields.LEVEL),
     name = DqlOrderField(prefix + UserFields.NAME),
+    birthDay = DqlOrderField(prefix + UserFields.BIRTH_DAY),
     emailAddress = DqlOrderField(prefix + UserFields.EMAIL_ADDRESS),
 )

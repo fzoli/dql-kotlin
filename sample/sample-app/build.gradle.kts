@@ -28,6 +28,7 @@ dependencies {
     implementation(project(":sample-repository-pgsql"))
     implementation(project(":sample-rest-server"))
     implementation(libs.flyway.core)
+    implementation(libs.flyway.postgresql)
     implementation(libs.hikaricp)
     implementation(libs.jdbc.postgresql)
     implementation(libs.kotlin.reflect)

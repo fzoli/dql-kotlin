@@ -20,6 +20,7 @@ buildscript {
     }
     dependencies {
         classpath libs.flyway.core
+        classpath libs.flyway.postgresql
         classpath libs.testcontainers.postgresql
         classpath libs.querydsl.sql.codegen
         classpath libs.querydsl.codegen

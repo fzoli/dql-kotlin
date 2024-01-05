@@ -21,6 +21,7 @@ buildscript {
     dependencies {
         classpath libs.snakeyaml
         classpath libs.flyway.core
+        classpath libs.flyway.postgresql
     }
 }
 

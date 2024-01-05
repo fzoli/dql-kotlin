@@ -17,7 +17,7 @@ package com.farcsal.sample.testengine.initializer
 
 import com.farcsal.sample.testengine.database.ContainerDatabase
 import com.farcsal.sample.testengine.database.Database
-import com.farcsal.sample.testengine.database.DatabaseHolder
+import com.farcsal.sample.testengine.context.registerSingleton
 import org.springframework.boot.test.util.TestPropertyValues
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.ConfigurableApplicationContext
@@ -33,7 +33,7 @@ class DatabaseTestInitializer : ApplicationContextInitializer<ConfigurableApplic
         database.start()
         Runtime.getRuntime().addShutdownHook(ShutdownHook(database))
 
-        DatabaseHolder.registerDatabase(database)
+        applicationContext.registerSingleton(database)
 
         initializeAppContext(applicationContext, database)
     }

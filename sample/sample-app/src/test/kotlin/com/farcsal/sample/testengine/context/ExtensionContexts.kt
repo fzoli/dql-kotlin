@@ -15,16 +15,19 @@
  */
 package com.farcsal.sample.testengine.context
 
-object TestContextHolder {
+import com.farcsal.sample.testengine.extension.currentExtensionContext
+import org.junit.jupiter.api.extension.ExtensionContext
+import org.springframework.context.ApplicationContext
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
-    private var contextRef: TestContext? = null
-
-    val context: TestContext? get() = contextRef
-
-    fun registerContext(context: TestContext) {
-        contextRef = context
-    }
-
+val currentTestContext: TestContext get() {
+    return currentExtensionContext.testContext
 }
 
-val testContext = TestContextHolder.context
+val ExtensionContext.testContext: TestContext get() {
+    return applicationContext.requireBean<TestContext>()
+}
+
+val ExtensionContext.applicationContext: ApplicationContext get() {
+    return SpringExtension.getApplicationContext(this)
+}

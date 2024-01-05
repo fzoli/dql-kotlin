@@ -15,16 +15,18 @@
  */
 package com.farcsal.sample.testengine.context
 
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.beans.factory.ObjectProvider
+import org.springframework.context.ApplicationContext
+import org.springframework.context.ConfigurableApplicationContext
 
-@Configuration
-class TestContextConfiguration {
+inline fun <reified T> ApplicationContext.requireBean(): T {
+    return requireNotNull(getBeanProvider<T>().ifUnique) { "Bean ${T::class} has not found" }
+}
 
-    @Bean
-    fun testContextHolder(testContext: TestContext): TestContextHolder {
-        TestContextHolder.registerContext(testContext)
-        return TestContextHolder
-    }
+inline fun <reified T> ApplicationContext.getBeanProvider(): ObjectProvider<T> {
+    return getBeanProvider(T::class.java)
+}
 
+inline fun <reified T: Any> ConfigurableApplicationContext.registerSingleton(obj: T) {
+    beanFactory.registerSingleton(T::class.java.canonicalName, obj)
 }

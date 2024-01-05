@@ -21,8 +21,8 @@ import org.junit.jupiter.api.extension.ExtensionContext
 
 class StatelessIntegrationTestExtension : AfterEachCallback {
 
-    override fun afterEach(context: ExtensionContext?) {
-        testContext?.reset()
+    override fun afterEach(context: ExtensionContext) {
+        context.testContext.reset()
     }
 
 }

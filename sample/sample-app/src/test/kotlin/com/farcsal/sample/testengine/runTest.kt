@@ -16,8 +16,8 @@
 package com.farcsal.sample.testengine
 
 import com.farcsal.sample.testengine.context.TestContext
-import com.farcsal.sample.testengine.context.testContext
+import com.farcsal.sample.testengine.context.currentTestContext
 
 fun runTest(block: TestContext.() -> Unit) {
-    block(requireNotNull(testContext))
+    block(currentTestContext)
 }

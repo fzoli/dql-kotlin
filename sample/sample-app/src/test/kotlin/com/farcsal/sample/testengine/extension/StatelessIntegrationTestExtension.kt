@@ -15,14 +15,16 @@
  */
 package com.farcsal.sample.testengine.extension
 
-import com.farcsal.sample.testengine.context.testContext
+import com.farcsal.sample.testengine.context.TestContext
+import com.farcsal.sample.testengine.context.applicationContext
+import com.farcsal.sample.testengine.context.requireBean
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
 class StatelessIntegrationTestExtension : AfterEachCallback {
 
     override fun afterEach(context: ExtensionContext) {
-        context.testContext.reset()
+        context.applicationContext.requireBean<TestContext>().reset()
     }
 
 }

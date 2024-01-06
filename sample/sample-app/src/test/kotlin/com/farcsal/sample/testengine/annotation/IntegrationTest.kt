@@ -16,6 +16,7 @@
 package com.farcsal.sample.testengine.annotation
 
 import com.farcsal.sample.TestApplication
+import com.farcsal.sample.testengine.extension.ContextHolderExtension
 import com.farcsal.sample.testengine.extension.IntegrationTestExtension
 import com.farcsal.sample.testengine.initializer.DatabaseTestInitializer
 import com.farcsal.sample.testengine.initializer.IntegrationTestInitializer
@@ -31,6 +32,7 @@ import org.springframework.test.context.ContextConfiguration
     IntegrationTestInitializer::class,
     DatabaseTestInitializer::class
 ])
+@ExtendWith(ContextHolderExtension::class)
 @ExtendWith(IntegrationTestExtension::class)
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

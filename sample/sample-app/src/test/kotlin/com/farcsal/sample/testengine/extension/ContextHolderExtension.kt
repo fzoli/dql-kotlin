@@ -15,21 +15,27 @@
  */
 package com.farcsal.sample.testengine.extension
 
-import com.farcsal.sample.testengine.context.*
-import com.farcsal.sample.testengine.database.Database
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
-class IntegrationTestExtension : BeforeEachCallback, AfterEachCallback {
+class ContextHolderExtension : BeforeEachCallback, AfterEachCallback {
 
     override fun beforeEach(context: ExtensionContext) {
-        context.applicationContext.getBeanProvider<Database>().forEach(Database::create)
+        contextHolder.set(context)
     }
 
     override fun afterEach(context: ExtensionContext) {
-        context.applicationContext.getBeanProvider<Database>().forEach(Database::clean)
-        context.applicationContext.requireBean<TestContext>().reset()
+        contextHolder.remove()
     }
 
+    companion object {
+        private val contextHolder: ThreadLocal<ExtensionContext> = ThreadLocal()
+        val currentContext: ExtensionContext? get() = contextHolder.get()
+    }
+
+}
+
+val currentExtensionContext: ExtensionContext get() {
+    return requireNotNull(ContextHolderExtension.currentContext) { "Missing extension context" }
 }

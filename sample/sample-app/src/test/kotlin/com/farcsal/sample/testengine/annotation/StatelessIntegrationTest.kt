@@ -16,6 +16,7 @@
 package com.farcsal.sample.testengine.annotation
 
 import com.farcsal.sample.TestApplication
+import com.farcsal.sample.testengine.extension.ContextHolderExtension
 import com.farcsal.sample.testengine.extension.StatelessIntegrationTestExtension
 import com.farcsal.sample.testengine.initializer.IntegrationTestInitializer
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,6 +30,7 @@ import org.springframework.test.context.ContextConfiguration
 @ContextConfiguration(initializers = [
     IntegrationTestInitializer::class,
 ])
+@ExtendWith(ContextHolderExtension::class)
 @ExtendWith(StatelessIntegrationTestExtension::class)
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

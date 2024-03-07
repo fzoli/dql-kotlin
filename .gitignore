@@ -11,4 +11,5 @@
 *.iml
 *.ipr
 *.iws
+.profileconfig.json
 versions.properties

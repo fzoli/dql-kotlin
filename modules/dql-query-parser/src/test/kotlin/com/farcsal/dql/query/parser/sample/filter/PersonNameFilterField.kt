@@ -15,10 +15,12 @@
  */
 package com.farcsal.dql.query.parser.sample.filter
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlFilterResolver
 import com.farcsal.dql.query.parser.sample.PersonNameFields
 import com.farcsal.query.api.SerializedField
 import com.farcsal.query.api.StringField
 
+@GenerateDqlFilterResolver
 data class PersonNameFilterField(
     @field:SerializedField(PersonNameFields.FIRST_NAME)
     val firstName: StringField,

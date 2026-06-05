@@ -15,11 +15,13 @@
  */
 package com.farcsal.sample.repository.api.user.model
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlFilterResolver
 import com.farcsal.query.api.*
 import com.farcsal.sample.query.api.UnaccentStringField
 import com.farcsal.sample.repository.api.util.ids.UserIdField
 import com.farcsal.sample.repository.api.util.phonenumber.model.PhoneNumberFilterField
 
+@GenerateDqlFilterResolver
 class UserFilterField(
     @field:SerializedField(UserFields.ID)
     val id: UserIdField,

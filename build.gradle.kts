@@ -22,6 +22,7 @@ buildscript {
 
     dependencies {
         classpath(libs.kotlin.gradle.plugin)
+        classpath(libs.ksp.gradle.plugin)
     }
 
 }

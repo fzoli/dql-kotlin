@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.dql.query.parser.sample.filter
 
-import com.farcsal.dql.query.parser.annotation.GenerateDqlFilterResolver
-import com.farcsal.dql.query.parser.sample.PersonFields
-import com.farcsal.query.api.LongField
-import com.farcsal.query.api.SerializedField
+plugins {
+    `java-library`
+}
 
-@GenerateDqlFilterResolver
-data class PersonFilterField(
-    @field:SerializedField(PersonFields.NAME)
-    val name: PersonNameFilterField,
-    @field:SerializedField(PersonFields.AGE)
-    val age: LongField
-)
+dependencies {
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.ksp.api)
+}

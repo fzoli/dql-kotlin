@@ -13,28 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.farcsal.sample.configuration
+package com.farcsal.sample.rest.user
 
 import com.farcsal.dql.query.parser.filter.DqlFilterFactory
-import com.farcsal.dql.query.parser.filter.invoker.extend
-import com.farcsal.dql.query.parser.filter.invoker.strategyFactories
-import com.farcsal.dql.query.parser.filter.invoker.withAnyStrategy
-import com.farcsal.sample.dql.query.parser.filter.invoker.strategy.DqlMethodInvokerUnaccentStringStrategyFactory
+import com.farcsal.dql.query.parser.order.OrderFunctionFactory
+import com.farcsal.sample.repository.api.user.model.UserFilterFieldDqlFilterFieldParser
+import com.farcsal.sample.repository.api.user.model.UserOrderFieldDqlOrderFieldParser
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class DqlFilterConfiguration {
+open class UserDqlConfiguration {
 
     @Bean
-    fun dqlFilterFactory(): DqlFilterFactory {
-        return DqlFilterFactory(
-            methodInvokerStrategyFactories = strategyFactories
-                .extend(listOf(
-                    DqlMethodInvokerUnaccentStringStrategyFactory(),
-                ))
-                .withAnyStrategy()
-        )
+    open fun userFilterFieldParser(dqlFilterFactory: DqlFilterFactory): UserFilterFieldDqlFilterFieldParser {
+        return UserFilterFieldDqlFilterFieldParser(dqlFilterFactory)
+    }
+
+    @Bean
+    open fun userOrderFieldParser(orderFunctionFactory: OrderFunctionFactory): UserOrderFieldDqlOrderFieldParser {
+        return UserOrderFieldDqlOrderFieldParser(orderFunctionFactory)
     }
 
 }

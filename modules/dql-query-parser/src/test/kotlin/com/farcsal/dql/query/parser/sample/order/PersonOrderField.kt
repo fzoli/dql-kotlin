@@ -15,10 +15,12 @@
  */
 package com.farcsal.dql.query.parser.sample.order
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlOrderResolver
 import com.farcsal.dql.query.parser.sample.PersonFields
 import com.farcsal.query.api.OrderField
 import com.farcsal.query.api.SerializedField
 
+@GenerateDqlOrderResolver
 data class PersonOrderField(
     @field:SerializedField(PersonFields.NAME)
     val name: PersonNameOrderField,

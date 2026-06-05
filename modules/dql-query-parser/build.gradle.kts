@@ -17,6 +17,7 @@
 plugins {
     `java-library`
 }
+apply(plugin = "com.google.devtools.ksp")
 
 dependencies {
     api(project(":query-api"))
@@ -27,9 +28,11 @@ dependencies {
     implementation(libs.kotlin.reflect)
     testImplementation(project(":query-querydsl"))
     testImplementation(project(":query-kt"))
+    testImplementation(project(":dql-query-parser-annotation"))
     testImplementation(libs.slf4j.nop)
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
+    "kspTest"(project(":dql-query-parser-ksp"))
 }
 
 tasks.withType<Test> {

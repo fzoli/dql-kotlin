@@ -17,7 +17,6 @@ package com.farcsal.sample.configuration
 
 import com.farcsal.dql.query.parser.order.DqlOrderFactory
 import com.farcsal.dql.query.parser.order.OrderFunctionFactory
-import com.farcsal.dql.query.parser.order.field.DynamicDqlOrderFieldParser
 import com.farcsal.dql.query.parser.order.field.decorator.LocalizedOrderFieldDecorator
 import com.farcsal.dql.query.parser.order.field.decorator.OrderFieldDecorator
 import com.farcsal.dql.query.parser.util.locale.DqlLocaleProvider
@@ -43,11 +42,6 @@ class DqlOrderConfiguration {
         orderFieldDecorator: OrderFieldDecorator
     ): OrderFunctionFactory {
         return OrderFunctionFactory(dqlOrderFactory, orderFieldDecorator)
-    }
-
-    @Bean
-    fun dynamicDqlOrderFieldParser(orderFunctionFactory: OrderFunctionFactory): DynamicDqlOrderFieldParser {
-        return DynamicDqlOrderFieldParser(orderFunctionFactory)
     }
 
 }

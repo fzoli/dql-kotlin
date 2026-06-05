@@ -15,10 +15,8 @@
  */
 package com.farcsal.sample.rest.user
 
-import com.farcsal.dql.query.parser.filter.field.DynamicDqlFilterFieldParser
-import com.farcsal.dql.query.parser.order.field.DynamicDqlOrderFieldParser
-import com.farcsal.sample.repository.api.user.model.UserFilterField
-import com.farcsal.sample.repository.api.user.model.UserOrderField
+import com.farcsal.sample.repository.api.user.model.UserFilterFieldDqlFilterFieldParser
+import com.farcsal.sample.repository.api.user.model.UserOrderFieldDqlOrderFieldParser
 import com.farcsal.sample.repository.api.util.Paging
 import com.farcsal.sample.rest.util.QueryParameters
 import com.farcsal.sample.service.api.user.UserService
@@ -31,8 +29,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("users")
 class UserRestController @Autowired constructor(
     private val userService: UserService,
-    private val dynamicDqlFilterFieldParser: DynamicDqlFilterFieldParser,
-    private val dynamicDqlOrderFieldParser: DynamicDqlOrderFieldParser,
+    private val userFilterFieldParser: UserFilterFieldDqlFilterFieldParser,
+    private val userOrderFieldParser: UserOrderFieldDqlOrderFieldParser,
 ) {
 
     @GetMapping
@@ -42,8 +40,8 @@ class UserRestController @Autowired constructor(
         @RequestParam(required = false, name = QueryParameters.OFFSET) offset: Long?,
         @RequestParam(required = false, name = QueryParameters.LIMIT) limit: Int?,
     ): List<User> {
-        val filter = dynamicDqlFilterFieldParser.parseFilter<UserFilterField>(filterDql)
-        val order = dynamicDqlOrderFieldParser.parseOrder<UserOrderField>(orderDql)
+        val filter = userFilterFieldParser.parseFilter(filterDql)
+        val order = userOrderFieldParser.parseOrder(orderDql)
         return userService.list(filter, order, Paging(offset, limit))
     }
 

@@ -15,10 +15,12 @@
  */
 package com.farcsal.sample.repository.api.user.model
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlOrderResolver
 import com.farcsal.query.api.OrderField
 import com.farcsal.query.api.SerializedField
 import com.farcsal.query.api.StringOrderField
 
+@GenerateDqlOrderResolver
 class UserOrderField(
     @field:SerializedField(UserFields.CREATION_TIME)
     val creationTime: OrderField,

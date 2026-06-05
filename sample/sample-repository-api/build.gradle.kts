@@ -17,8 +17,12 @@
 plugins {
     `java-library`
 }
+apply(plugin = "com.google.devtools.ksp")
 
 dependencies {
     api(project(":query-api"))
     api(project(":sample-query-extension-api"))
+    implementation(project(":dql-query-parser"))
+    implementation(project(":dql-query-parser-annotation"))
+    "ksp"(project(":dql-query-parser-ksp"))
 }

@@ -15,11 +15,13 @@
  */
 package com.farcsal.dql.query.parser.sample.order
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlOrderResolver
 import com.farcsal.dql.query.parser.sample.PersonNameFields
 import com.farcsal.query.api.SerializedField
 import com.farcsal.query.api.StringOrderField
 
-data class PersonNameOrderField (
+@GenerateDqlOrderResolver
+data class PersonNameOrderField(
     @field:SerializedField(PersonNameFields.FIRST_NAME)
     val firstName: StringOrderField,
     @field:SerializedField(PersonNameFields.LAST_NAME)

@@ -1,0 +1,2 @@
+com.farcsal.dql.query.parser.ksp.DqlFilterResolverProcessorProvider
+com.farcsal.dql.query.parser.ksp.DqlOrderResolverProcessorProvider

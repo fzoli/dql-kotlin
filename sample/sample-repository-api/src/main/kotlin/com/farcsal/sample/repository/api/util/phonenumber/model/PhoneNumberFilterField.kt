@@ -15,10 +15,12 @@
  */
 package com.farcsal.sample.repository.api.util.phonenumber.model
 
+import com.farcsal.dql.query.parser.annotation.GenerateDqlFilterResolver
 import com.farcsal.query.api.EnumField
 import com.farcsal.query.api.SerializedField
 import com.farcsal.query.api.StringField
 
+@GenerateDqlFilterResolver
 class PhoneNumberFilterField(
     @field:SerializedField(PhoneNumberFields.VALUE)
     val value: StringField,

@@ -18,7 +18,6 @@ package com.farcsal.dql.query.parser.filter.invoker.strategy
 import com.farcsal.datatype.findDuplicates
 import com.farcsal.dql.query.parser.filter.resolver.DqlCriteriaExpressionParser
 import com.farcsal.query.api.Field
-import java.util.stream.Collectors
 
 interface DqlMethodInvokerStrategy : DqlCriteriaExpressionParser {
 
@@ -40,9 +39,9 @@ interface DqlMethodInvokerStrategy : DqlCriteriaExpressionParser {
         if (duplicates.isEmpty()) {
             return
         }
-        val values: String = duplicates.stream()
-            .map { obj: T -> obj.toString() }
-            .collect(Collectors.joining(",", "[", "]"))
+        val values: String = duplicates.asSequence()
+            .map { it.toString() }
+            .joinToString(",", "[", "]")
         throw IllegalArgumentException("Field '$field' has duplicates: $values")
     }
 

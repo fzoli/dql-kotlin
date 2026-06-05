@@ -21,7 +21,6 @@ import com.farcsal.dql.model.DqlNumber
 import com.farcsal.dql.model.DqlOp
 import org.apache.commons.lang3.Validate
 import org.apache.commons.text.StringEscapeUtils
-import java.util.stream.Collectors
 
 class DqlStringBuilder private constructor() {
 
@@ -353,29 +352,21 @@ class DqlStringBuilder private constructor() {
     }
 
     private fun joinVariable(value: Collection<String>): String {
-        return value.stream()
-            .map { s: String ->
-                DELIMITER_VARIABLE_BEGIN + s + DELIMITER_VARIABLE_END
-            }
-            .collect(Collectors.joining(DELIMITER_LIST_VALUE))
+        return value.asSequence()
+            .map { DELIMITER_VARIABLE_BEGIN + it + DELIMITER_VARIABLE_END }
+            .joinToString(separator = DELIMITER_LIST_VALUE)
     }
 
     private fun joinString(value: Collection<String>): String {
-        return value.stream()
-            .map { s: String ->
-                DELIMITER_STRING + StringEscapeUtils.escapeJava(s) + DELIMITER_STRING
-            }
-            .collect(Collectors.joining(DELIMITER_LIST_VALUE))
+        return value.asSequence()
+            .map { DELIMITER_STRING + it + DELIMITER_STRING }
+            .joinToString(separator = DELIMITER_LIST_VALUE)
     }
 
     private fun joinNumber(values: Collection<DqlNumber>): String {
-        return values.stream()
-            .map { value ->
-                numberToString(
-                    value
-                )
-            }
-            .collect(Collectors.joining(DELIMITER_LIST_VALUE))
+        return values.asSequence()
+            .map { numberToString(it) }
+            .joinToString(separator = DELIMITER_LIST_VALUE)
     }
 
     private fun numberToString(value: DqlNumber): String {

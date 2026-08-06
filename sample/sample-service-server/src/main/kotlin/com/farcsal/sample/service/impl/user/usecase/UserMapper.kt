@@ -31,7 +31,7 @@ fun toPublic(
         name = user.name,
         birthDay = user.birthDay,
         emailAddress = user.emailAddress,
-        phoneNumbers = phoneNumbers
+        phoneNumbers = phoneNumbers.asSequence()
             .filter { phoneNumber ->
                 phoneNumber.userId == user.id
             }

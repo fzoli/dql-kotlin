@@ -23,15 +23,15 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-open class UserDqlConfiguration {
+class UserDqlConfiguration {
 
     @Bean
-    open fun userFilterFieldParser(dqlFilterFactory: DqlFilterFactory): UserFilterFieldDqlFilterFieldParser {
+    fun userFilterFieldParser(dqlFilterFactory: DqlFilterFactory): UserFilterFieldDqlFilterFieldParser {
         return UserFilterFieldDqlFilterFieldParser(dqlFilterFactory)
     }
 
     @Bean
-    open fun userOrderFieldParser(orderFunctionFactory: OrderFunctionFactory): UserOrderFieldDqlOrderFieldParser {
+    fun userOrderFieldParser(orderFunctionFactory: OrderFunctionFactory): UserOrderFieldDqlOrderFieldParser {
         return UserOrderFieldDqlOrderFieldParser(orderFunctionFactory)
     }
 

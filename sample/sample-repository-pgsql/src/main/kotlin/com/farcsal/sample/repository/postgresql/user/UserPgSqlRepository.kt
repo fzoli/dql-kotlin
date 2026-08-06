@@ -37,7 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-open class UserPgSqlRepository @Autowired constructor(
+class UserPgSqlRepository @Autowired constructor(
     private val dslProvider: PgSqlDslProvider,
 ) : UserRepository {
 

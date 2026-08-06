@@ -27,12 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-open class UserListUseCase @Autowired constructor(
+class UserListUseCase @Autowired constructor(
     private val userRepository: UserRepository,
 ) {
 
     @Transactional
-    open fun list(
+    fun list(
         filter: FilterFunction<UserFilterField>?,
         order: OrderFunction<UserOrderField>?,
         paging: Paging?,

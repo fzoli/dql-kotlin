@@ -28,13 +28,13 @@ import java.time.Clock
 import java.time.Instant
 
 @UseCase
-open class UserCreateUseCase @Autowired constructor(
+class UserCreateUseCase @Autowired constructor(
     private val clock: Clock,
     private val userRepository: UserRepository,
 ) {
 
     @Transactional
-    open fun create(
+    fun create(
         request: UserCreateRequest
     ): User {
         val id = userRepository.create(UserCreateDto(

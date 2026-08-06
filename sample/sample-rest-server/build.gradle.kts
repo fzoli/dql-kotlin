@@ -16,6 +16,7 @@
 
 plugins {
     `java-library`
+    alias(libs.plugins.kotlin.plugin.spring)
 }
 
 dependencies {

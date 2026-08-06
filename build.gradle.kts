@@ -32,8 +32,8 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
-val signingKey: String? by project
-val signingPassphrase: String? by project
+val signingKey: String? = project.findProperty("signingKey") as String?
+val signingPassphrase: String? = project.findProperty("signingPassphrase") as String?
 val ossrhUsername = System.getenv("OSSRH_USERNAME") ?: ""
 val ossrhPassword = System.getenv("OSSRH_PASSWORD") ?: ""
 
@@ -82,20 +82,20 @@ subprojects {
         apply<SigningPlugin>()
         apply<org.jetbrains.dokka.gradle.DokkaPlugin>()
 
-        val sourcesJar by tasks.creating(Jar::class) {
-            val sourceSets: SourceSetContainer by project
+        val sourceSets = project.extensions.getByType<SourceSetContainer>()
+        val sourcesJar = tasks.register<Jar>("sourcesJar") {
             from(sourceSets["main"].allSource)
             archiveClassifier.set("sources")
         }
 
-        val dokkaJavadoc by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
+        val dokkaJavadoc = tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaJavadoc") {
             dokkaSourceSets {
                 named("main") {
                     noAndroidSdkLink.set(false)
                 }
             }
         }
-        val dokkaJavadocJar by tasks.creating(Jar::class) {
+        val dokkaJavadocJar = tasks.register<Jar>("dokkaJavadocJar") {
             from(dokkaJavadoc)
             archiveClassifier.set("javadoc")
         }

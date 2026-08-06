@@ -27,6 +27,10 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+testing {
+    suites {
+        named<JvmTestSuite>("test") {
+            useJUnitJupiter(libs.versions.junit.jupiter)
+        }
+    }
 }

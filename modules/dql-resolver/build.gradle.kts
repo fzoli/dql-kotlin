@@ -68,8 +68,12 @@ tasks {
         dependsOn(generateGrammarSource)
     }
 
-    withType<Test> {
-        useJUnitPlatform()
+    testing {
+        suites {
+            named<JvmTestSuite>("test") {
+                useJUnitJupiter(libs.versions.junit.jupiter)
+            }
+        }
     }
 
 }

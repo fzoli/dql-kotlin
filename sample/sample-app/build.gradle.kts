@@ -57,7 +57,14 @@ tasks.getByName<BootJar>("bootJar") {
 
 tasks.withType<Test> {
     if (!project.hasProperty("sample-test") || "false" != project.property("sample-test")) {
-        useJUnitPlatform()
         dependsOn(":sample-docker-pgsql:docker")
+    }
+}
+
+testing {
+    suites {
+        named<JvmTestSuite>("test") {
+            useJUnitJupiter(libs.versions.junit.jupiter)
+        }
     }
 }

@@ -26,6 +26,8 @@ buildscript {
         classpath libs.querydsl.codegen
         // Annotation API was removed from JDK9 and codegen requires it at runtime
         classpath libs.javax.annotation.api
+        // groovy-sql no longer bundled with Groovy 4 (Gradle 9+); needed for groovy.sql.Sql
+        classpath libs.groovy.sql
     }
 }
 

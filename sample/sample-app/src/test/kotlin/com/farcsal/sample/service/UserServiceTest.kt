@@ -30,10 +30,9 @@ import java.time.Instant
 import java.time.LocalDate
 
 @IntegrationTest
-class UserServiceTest {
-
-    @Autowired
-    private lateinit var userService: UserService
+class UserServiceTest @Autowired constructor(
+    private val userService: UserService,
+) {
 
     @Test
     fun usage() = runTest {
